@@ -1,0 +1,1 @@
+/home/eleves/promo17/info/braem/public_html/gits/GLLabs/ownFromScratch/build/CMakeFiles/myOwnOpenGLProg.dir
