@@ -1,3 +1,10 @@
-OpenGL Project LookAroundTetris
+# OpenGL Project LookAroundTetris
 
-FromScratch demo in ownFromScratch Folder
+
+
+**Dev team :** Braem Quentin, Lacherez Sylvain, Lemiere Morgan and Binet Benjamin
+
+**Team leader :** Lacherez Sylvain
+
+### Folder contents
+* **OwnFromScratch :** FromScratch demo 
