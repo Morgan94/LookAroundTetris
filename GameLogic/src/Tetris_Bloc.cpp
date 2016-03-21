@@ -22,9 +22,9 @@ bool Tetris_Bloc::isEmpty(){
 	return !_check;
 }
 
-void Tetris_Bloc::setCheck(bool c){
+void Tetris_Bloc::setCheck(bool ch){
 	
-	_check = c;
+	_check = ch;
 }
 	
 int Tetris_Bloc::getValue(){

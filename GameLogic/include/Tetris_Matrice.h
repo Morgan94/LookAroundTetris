@@ -17,10 +17,9 @@ class Tetris_Matrice{
 
  public:
   
-    Tetris_Matrice();
-
-    Tetris_Bloc* operator[](int ligne);
-
+    Tetris_Matrice(int nl,int nc);
+	void display();
+    Tetris_Bloc** operator[](int ligne);
 	int rowFull();
 	
 };

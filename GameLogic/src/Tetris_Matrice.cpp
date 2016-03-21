@@ -1,17 +1,19 @@
 #include "Tetris_Matrice.h"
 
 
-Tetris_Matrice::Tetris_Matrice(){
+Tetris_Matrice::Tetris_Matrice(int nl,int nc){
 
-  *_mat = new Tetris_Bloc[_nl*_nc];
+	_nl = nl;
+	_nc = nc;
+	_mat = new Tetris_Bloc*[_nl*_nc];
   
-  for(int i=0;i<_nl*_nc;i++){
-	  _mat[i] = new Tetris_Bloc(); 
-  }
+	for(int i=0;i<_nl*_nc;i++){
+		_mat[i] = new Tetris_Bloc(); 
+	}
 }
 
-Tetris_Bloc* Tetris_Matrice::operator[](int ligne){
-  return (_mat[ligne*_nc]);
+Tetris_Bloc** Tetris_Matrice::operator[](int ligne){
+  return &(_mat[ligne*_nc]);
 }
 
 
@@ -21,8 +23,9 @@ int Tetris_Matrice::rowFull(){
 	int rowNum;
 	
 	for(int i=0;i<_nl;i++){
+		full = true;
 		for(int j=0;j<_nc;j++){	
-			if(_mat[_nl][_nc].isEmpty()){
+			if((*this)[i][j]->isEmpty()){
 				full = false;
 			}
 		}
@@ -32,5 +35,20 @@ int Tetris_Matrice::rowFull(){
 		}
 	}
 	return -1;
+}
+
+void Tetris_Matrice::display(){
+
+	for(int i=0;i<height;i++){
+		for(int j=0;j<width;j++){	
+			if((*this)[i][j]->isEmpty()){
+				std::cout<<"[0]";
+			}
+			else{
+				std::cout<<"[1]";
+			}
+		}
+		std::cout<<std::endl;
+	}
 }
 

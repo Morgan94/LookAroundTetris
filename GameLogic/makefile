@@ -1,5 +1,5 @@
 CC=g++
-CFLAG=-W -fno-elide-constructors -Wall -pedantic --std=c++11
+CFLAG=-Wall -pedantic --std=c++11
 INC= -Iinclude
 
 all: main

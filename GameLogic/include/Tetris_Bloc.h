@@ -5,17 +5,17 @@
 
 class Tetris_Bloc{
 
- private:
-	
+private:
+
 	bool _check;
 	int _value;  // Exemple pour bloc "rare" qui valent plus de point 
 	int _color;
-	
- public:
- 
+
+public:
+
 	Tetris_Bloc();
 	Tetris_Bloc(bool ch,int v,int c);
- 
+
 	bool isEmpty();
 	int getValue();
 	int getColor();
