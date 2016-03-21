@@ -51,9 +51,9 @@ typedef long            Sint64;
 #endif
 
 
-#define SCREEN_W            1024
-#define SCREEN_H            800
-#define TITLE               "My Own OpenGL Program"
+#define SCREEN_W                1024
+#define SCREEN_H                800
+#define TITLE                   "My Own OpenGL Program"
 #define PATH_RESOURCES          "../resources/"
 
 // ATTRIBUTES NAME //

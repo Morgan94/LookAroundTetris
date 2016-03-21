@@ -1,6 +1,13 @@
 #include "myOwnFramework.h"
 
 
+#ifndef USE_FRAMEWORK__HAKUREI
+    #define NO_PERMISSION   exitOnError("Oops, it seems you're not allowed to use this framework. Take it easy.");
+#else
+    #define NO_PERMISSION
+#endif
+
+
 
 void shutDown(int return_code)
 {
@@ -111,6 +118,7 @@ Uint8* fileContents(const char* srcf,Uint32* length)
 
 Hakurei::ShaderProgram::ShaderProgram(String vShader, String fShader)
 {
+    NO_PERMISSION
     attributes.clear();
     uniforms.clear();
 
@@ -500,6 +508,7 @@ void Hakurei::Texture::read_BMP(const char *filename)
 
 Hakurei::Texture::Texture(const String &imagepath, GLenum wrap_s, GLenum wrap_t, GLenum mag_filter, GLenum min_filter, bool aniso)
 {
+    NO_PERMISSION
     pixels = NULL;
     w = 0;
     h = 0;
@@ -567,6 +576,7 @@ Hakurei::Texture::Texture(const String &imagepath, GLenum wrap_s, GLenum wrap_t,
 
 Hakurei::Material::Material(String vShader, String fShader)
 {
+    NO_PERMISSION
     useTexture = false;
     texture = NULL;
     String vertexSh = PATH_RESOURCES + vShader;
@@ -597,6 +607,7 @@ void Hakurei::Material::addTexture(Hakurei::Texture* _texture)
 
 Hakurei::Mesh::Mesh()
 {
+    NO_PERMISSION
     vertices.clear();
     triangles.clear();
     vbos.clear();
@@ -976,6 +987,7 @@ void Hakurei::Mesh::objData()
 
 Hakurei::KeyHandler::KeyHandler(Bool _keyRepeat)
 {
+    NO_PERMISSION
     for(int i=0; i<GLFW_KEYS; i++)
         key[i] = false;
     keyRepeat = _keyRepeat;
@@ -1053,6 +1065,7 @@ void Hakurei::KeyHandler::resetKeyState()
 
 Hakurei::OpenCamera::OpenCamera()
 {
+    NO_PERMISSION
     position = Vec3f(0,0,5);
     FoV = PI / 4.0f;
     angleV = PI;
@@ -1175,6 +1188,7 @@ void Hakurei::OpenCamera::moveCameraFromInputs()
 
 Hakurei::OpenScene::OpenScene()
 {
+    NO_PERMISSION
     objects.clear();
     materials.clear();
     diffuse = glm::vec3(0.9, 0.9, 0.9);
