@@ -47,7 +47,7 @@ link_directories(${ASSIMP_LIBRARY_DIRS})
 ### Framework ###
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-set(FRAMEWORK_SRC lib/myOwnFramework.cpp lib/myOwnFramework.h)
+set(FRAMEWORK_SRC lib/Hakurei_ShaderProgram.cpp  lib/Hakurei_ShaderProgram.h  lib/Hakurei_Material.cpp  lib/Hakurei_Material.h  lib/Hakurei_Texture.cpp  lib/Hakurei_Texture.h  lib/Hakurei_Mesh.cpp  lib/Hakurei_Mesh.h  lib/Hakurei_KeyHandler.cpp  lib/Hakurei_KeyHandler.h  lib/Hakurei_OpenCamera.cpp lib/Hakurei_OpenCamera.h  lib/Hakurei_OpenScene.cpp  lib/Hakurei_OpenScene.h  lib/Hakurei_Utils.cpp  lib/Hakurei_Utils.h  lib/all.h)
 add_library(FrameworkHakurei ${FRAMEWORK_SRC})
 ### --------- ###
 

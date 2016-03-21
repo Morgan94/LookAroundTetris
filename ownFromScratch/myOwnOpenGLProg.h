@@ -1,7 +1,7 @@
 #ifndef __PROG_TEST_H__
 #define __PROG_TEST_H__
 
-#include "lib/myOwnFramework.h"
+#include "lib/all.h"
 
 #define SEG_TOP     0
 #define SEG_1       1
