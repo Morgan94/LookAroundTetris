@@ -19,6 +19,8 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/constants.hpp>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include <math.h>
 #ifndef PI
     #define PI  3.14159265359
@@ -317,6 +319,16 @@ namespace Hakurei
         void updateProgramUniforms(ShaderProgram *prog, Mesh *obj, Material *mat);
         void resetTransforms();
         void initDrawingScene();
+    };
+
+    class TextDisplay
+    {
+    public:
+        FT_Library _library;
+        FT_Face _face;
+
+        void init();
+
     };
 }
 

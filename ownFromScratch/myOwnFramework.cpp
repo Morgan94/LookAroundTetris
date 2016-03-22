@@ -1434,13 +1434,32 @@ void Hakurei::OpenScene::updateProgramUniforms(ShaderProgram* prog, Hakurei::Mes
     // ----------------- //
 }
 
+///// TEXT DISPLAY /////
 
 
+void Hakurei::TextDisplay::init()
+{
+    FT_Error error = FT_Init_FreeType(&_library);
+    if(error)
+    {
+        std::cerr << "Error code (" << error <<"): an error occured during library initialization." << ENDL;
+        return;
+    }
 
+    error = FT_New_Face(_library, "/usr/share/fonts/truetype/arial.ttf", 0, &_face);
 
+    if(error == FT_Err_Unknown_File_Format)
+    {
+        std::cerr << "Error code (" << error <<"): The font file could be opened and read, but it appears that its font format is unsupported." << ENDL;
+        return;
+    }
+    else if(error)
+    {
+        std::cerr << "Error code (" << error <<"): The font file could not be opened or read, or is broken." << ENDL;
+        return;
+    }
 
-
-
+}
 
 ///// FUNCTIONS USED IN MAIN LOOP /////
 

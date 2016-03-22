@@ -12,6 +12,7 @@ LINK_DIRECTORIES("~/local_install/lib")
 LINK_DIRECTORIES("/usr/local/lib")
 INCLUDE_DIRECTORIES("/usr/local/include")
 INCLUDE_DIRECTORIES("~/local_install/include")
+INCLUDE_DIRECTORIES("/home/eleves/promo17/info/bbinet/workspace/2A/OpenGLProject/freetype-2.4.0/include")
 ###  Settings  ###}}}
 
 ###  OpenGL  ###{{{
