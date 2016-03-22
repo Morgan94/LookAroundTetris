@@ -22,5 +22,6 @@ class Tetris_Matrice{
 	void display();
     Tetris_Bloc** operator[](int ligne);
 	int rowFull();
+	bool defeat();
 	
 };

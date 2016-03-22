@@ -52,6 +52,20 @@ void Tetris_Matrice::deleteRow(int num){
 	}
 }
 
+bool Tetris_Matrice::defeat(){
+	
+	bool defeat = false;
+	for(int i=0;i<4;i++){
+		for(int j=0;j<_nc;j++){
+			if(!((*this)[i][j]->isEmpty())){
+					defeat = true;
+			}
+		}		
+	}
+	return defeat;
+
+}
+
 
 void Tetris_Matrice::display(){
 
