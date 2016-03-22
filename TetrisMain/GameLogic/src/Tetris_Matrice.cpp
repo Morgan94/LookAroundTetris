@@ -37,6 +37,22 @@ int Tetris_Matrice::rowFull(){
 	return -1;
 }
 
+void Tetris_Matrice::deleteRow(int num){
+
+	for(int i=num;i>=0;i-=1){
+		for(int j=0;j<_nc;j++){	
+			if(i==0){
+				(*this)[i][j]->setCheck(false);	
+			}
+			else if (i<=num){
+				(*this)[i][j]->setCheck(!((*this)[i-1][j]->isEmpty()));
+			}
+			else{}
+		}
+	}
+}
+
+
 void Tetris_Matrice::display(){
 
 	for(int i=0;i<height;i++){
