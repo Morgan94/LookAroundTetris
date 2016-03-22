@@ -17,6 +17,7 @@ class Tetris_Matrice{
 
  public:
   
+	void deleteRow(int num);
     Tetris_Matrice(int nl,int nc);
 	void display();
     Tetris_Bloc** operator[](int ligne);
