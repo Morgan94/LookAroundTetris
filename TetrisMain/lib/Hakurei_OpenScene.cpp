@@ -165,7 +165,9 @@ void Hakurei::OpenScene::drawObject(String objName, String matName)
 /** It seems to work **/
 
     // Drawing routine
+    if(mat->alpha < 1) glDisable(GL_CULL_FACE);
     glDrawElements(GL_TRIANGLES, obj->length_i, GL_UNSIGNED_INT, 0);
+    if(mat->alpha < 1) glEnable(GL_CULL_FACE);
 
     // Clean state again
     glBindVertexArray(0);
@@ -234,7 +236,8 @@ void Hakurei::OpenScene::drawObjectInScene(String object, String material)
 
         // associate the chosen texture unit to the GLSL sampler
         glUseProgram(progId);
-        mat->prog->setUniform("colormap",textureUnit);
+        if(mat->colorSampler.size() != 0)
+            mat->prog->setUniform(mat->colorSampler,textureUnit);
         glUseProgram(0);
     }
 
@@ -250,6 +253,7 @@ void Hakurei::OpenScene::updateProgramUniforms(ShaderProgram* prog, Hakurei::Mes
     prog->setUniform("transformMatrix", obj->transformMatrix);
     prog->setUniform("viewMatrix", viewMatrix);
     prog->setUniform("normalMatrix", normalMatrix);
+    prog->setUniform("alpha", mat->alpha);
     // ----------------- //
 
     // light stuff //

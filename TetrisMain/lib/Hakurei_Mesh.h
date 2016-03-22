@@ -44,8 +44,15 @@ namespace Hakurei
         void transform(Uint8 transformType, Uint8 transformAction = NO_TRANSFORM, Vec3f v = Vec3f(), float angle = 0);
         void resetObjectTransform();
         void setObjectTransformAsDefault();
-        Bool importOBJ(String OBJfile);
+        Bool importOBJ(String OBJfile, Bool deleteFixedOBJ = true);
         //void objData(); <-- for debug purpose
+
+        // standard mesh creation routines
+        void createCube(float w, float d, float h, Vec4f color);
+
+    private:
+        String fixObjFile(String OBJfile); // fill UVs if obj has no UV
+
     };
 }
 

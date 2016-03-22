@@ -220,13 +220,57 @@ void Hakurei::Mesh::transform(Uint8 transformType, Uint8 transformAction, Vec3f 
     return;
 }
 
-Bool Hakurei::Mesh::importOBJ(String OBJfile)
+
+String Hakurei::Mesh::fixObjFile(String OBJfile)
+{
+    String fixedOBJ = OBJfile + ".fixed";
+    FILE* src = fopen(OBJfile.c_str(),"r");
+    if(src == NULL)
+    {
+        CERR << "OBJ File " << OBJfile << " not found." << ENDL;
+        return "";
+    }
+    FILE* dst = fopen(fixedOBJ.c_str(),"w");
+    if(dst == NULL)
+    {
+        CERR << "Cannot create new OBJ file." << ENDL;
+        fclose(src);
+        return "";
+    }
+
+    char cbuffer[256];
+    String buffer;
+    Sint32 pos;
+    while(fgets(cbuffer,256,src) != NULL)
+    {
+        buffer = String(cbuffer);
+        while((pos = buffer.find("//")) != String::npos)
+        {
+            String left = buffer.substr(0,pos);
+            String right = buffer.substr(pos+2);
+            buffer = left + "/0/" + right;
+        }
+        fprintf(dst,"%s",buffer.c_str());
+    }
+
+    fclose(src);
+    fclose(dst);
+    return fixedOBJ;
+}
+
+
+Bool Hakurei::Mesh::importOBJ(String OBJfile, Bool deleteFixedOBJ)
 {
     Vector<Uint32> vertexIndices, uvIndices, normalIndices;
     Vector<Vec3f> temp_vertices;
     Vector<Vec2f> temp_uvs;
     Vector<Vec3f> temp_normals;
-    String fullpath = PATH_RESOURCES + OBJfile;
+
+    String fullpath = fixObjFile(PATH_RESOURCES + OBJfile);
+    if(fullpath.size() == 0)
+    {
+        return false;
+    }
 
     FILE* file = fopen(fullpath.c_str(),"r");
     if(file == NULL)
@@ -265,7 +309,7 @@ Bool Hakurei::Mesh::importOBJ(String OBJfile)
             int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
             if(matches != 9)
             {
-                CERR << "Error occurred when reading OBJ file : cannot load object faces." << ENDL;
+                CERR << "Error occurred while reading OBJ file : cannot load object faces." << ENDL;
                 return false;
             }
             vertexIndices.push_back(vertexIndex[0]);
@@ -286,6 +330,7 @@ Bool Hakurei::Mesh::importOBJ(String OBJfile)
        normalIndices.size() != vertexIndices.size())
     {
         CERR << "Error : Not an valid OBJ file. There is not the same number of positions, normals and uvs indices." << ENDL;
+        CERR << "--- Positions: " << vertexIndices.size() << " | UVs: " << uvIndices.size() << " | Normals: " << normalIndices.size() << ENDL;
         return false;
     }
 
@@ -293,14 +338,17 @@ Bool Hakurei::Mesh::importOBJ(String OBJfile)
     triangles.clear();
 
     // VBO
+    Vec3f out_vertex;
+    Vec2f out_uv;
+    Vec3f out_normal;
     for(Uint32 i=0; i<vertexIndices.size(); i++)
     {
-        Uint32 vertexInd = vertexIndices[i];
-        Vec3f out_vertex = temp_vertices[vertexInd - 1];
-        Uint32 uvInd = uvIndices[i];
-        Vec2f out_uv = temp_uvs[uvInd - 1];
-        Uint32 normalInd = normalIndices[i];
-        Vec3f out_normal = temp_normals[normalInd - 1];
+        if(temp_vertices.size() == 0) out_vertex = Vec3f();
+        else out_vertex = temp_vertices[vertexIndices[i] - 1];
+        if(temp_uvs.size() == 0) out_uv = Vec2f();
+        else out_uv = temp_uvs[uvIndices[i] - 1];
+        if(temp_normals.size() == 0) out_normal = Vec3f();
+        else out_normal = temp_normals[normalIndices[i] - 1];
 
         vertices.push_back(Hakurei::Vertex(out_vertex, out_normal, Vec3f(), out_uv));
     }
@@ -310,6 +358,9 @@ Bool Hakurei::Mesh::importOBJ(String OBJfile)
     {
         triangles.push_back(Hakurei::Triangle(i, i+1, i+2));
     }
+
+    if(deleteFixedOBJ)
+        remove(fullpath.c_str());
 
     return true;
 }
@@ -369,4 +420,17 @@ void Hakurei::Mesh::objData()
 #endif
 }
 */
+
+
+
+void Hakurei::Mesh::createCube(float w, float d, float h, Vec4f color)
+{
+    if(w <= 0 || d <= 0 || h <= 0)
+    {
+        CERR << "Warning : dimensions must be positive." << ENDL;
+        return;
+    }
+
+
+}
 

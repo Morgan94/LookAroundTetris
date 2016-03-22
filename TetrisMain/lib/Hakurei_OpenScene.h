@@ -37,11 +37,14 @@ namespace Hakurei
         void removeMaterial(String mat_name);
         void addObject(String obj_name, Hakurei::Mesh* object);
         void removeObject(String obj_name);
-        void drawObject(String objName, String matName);
         void drawObjectInScene(String object, String material);
         void updateProgramUniforms(ShaderProgram *prog, Mesh *obj, Material *mat);
         void resetTransforms();
         void initDrawingScene();
+
+    private:
+        void drawObject(String objName, String matName);
+
     };
 }
 

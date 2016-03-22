@@ -7,6 +7,7 @@ in vec4 pcolor;
 
 out vec4 fragColor;
 
+uniform float alpha;
 uniform int hasTexture;
 uniform sampler2D colormap;
 uniform sampler2D normalmap;
@@ -57,8 +58,8 @@ void main()
     vec3 L_specular = ComputeLightSpecular(lightdir, lightcolor, fragNormal, eyedir, specular, shininess);
 
     if(hasTexture == 1)
-        fragColor = vec4(ambient * texture(colormap, puv).rgb + L_diffuse * texture(colormap, puv).rgb + L_specular, 1);
+        fragColor = vec4(ambient * texture(colormap, puv).rgb + L_diffuse * texture(colormap, puv).rgb + L_specular, alpha);
     else
-        fragColor = vec4(ambient * vec3(pcolor) + L_diffuse + L_specular, 1);
+        fragColor = vec4(ambient * vec3(pcolor) + L_diffuse + L_specular, alpha);
 }
 

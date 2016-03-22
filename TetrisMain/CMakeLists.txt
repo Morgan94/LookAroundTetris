@@ -51,8 +51,16 @@ set(FRAMEWORK_SRC lib/Hakurei_ShaderProgram.cpp  lib/Hakurei_ShaderProgram.h  li
 add_library(FrameworkHakurei ${FRAMEWORK_SRC})
 ### --------- ###
 
+
+### Source files ###
+set(GAME_PHYSIC  GamePhysic/Tetris_GamePhysic.cpp  GamePhysic/Tetris_GamePhysic.h)
+set(GAME_LOGIC  GameLogic/Tetris_Bloc.cpp  GameLogic/Tetris_Bloc.h  GameLogic/Tetris_Matrix.cpp  GameLogic/Tetris_Matrix.h)
+
+
+### ------------ ###
+
+
 ### Creating an executable
-add_executable(myOwnOpenGLProg myOwnOpenGLProg.cpp)
+add_executable(LookAroundTetris main.cpp ${GAME_PHYSIC} ${GAME_LOGIC})
 target_link_libraries(FrameworkHakurei ${GL_LIBRARIES} ${APPLE_FRAMEWORKS} ${GLFW3_STATIC_LIBRARIES} ${ASSIMP_LIBRARIES})
-target_link_libraries(myOwnOpenGLProg FrameworkHakurei)
-add_dependencies(myOwnOpenGLProg resources)
+target_link_libraries(LookAroundTetris FrameworkHakurei)

@@ -22,6 +22,7 @@ namespace Hakurei
         Bool anisotropy;
         //Bool hasMipmaps; <-- always true for the moment
 
+
         Texture(const String& imagepath, GLenum wrap_s = GL_REPEAT, GLenum wrap_t = GL_REPEAT,
                 GLenum mag_filter = GL_LINEAR, GLenum min_filter = GL_LINEAR, bool aniso = false);
     private:
