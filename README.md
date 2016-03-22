@@ -8,5 +8,9 @@
 
 ### Folder contents
 * **OwnFromScratch :** FromScratch demo
-* **GameLogic :** Classes Tetris_Matrix and Tetris_Bloc
-* **gamePhysic :** The same as OwnFromStratch at this time
+* New tree : Files are now in **TetrisMain** :
+    * **GameLogic** 
+    * **GamePhysic**
+    * **lib** (framework up to date, please use it instead of fromScratch's)
+    * new CMakeLists (use it to compile main.cpp)
+    * main.cpp (provisional, can be used for testing)
