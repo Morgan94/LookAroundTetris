@@ -6,6 +6,7 @@ enable_testing()
 ###  Settings  ###{{{
 set(CMAKE_CXX_FLAGS "-std=c++11 -DGL_GLEXT_PROTOTYPES -I/opt/X11/include") # Don't forget to define GL_GLEXT_PROTOTYPES to ensure that the glCreateShader and other prototypes are declared. Note we could do it in the main file via "#define GL_GLEXT_PROTOTYPES" before "#include <GL/glext.h>"
 ## setting build type to debug
+add_compile_options(-DUSE_FRAMEWORK__HAKUREI)
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_BUILD_TYPE DEBUG)
 LINK_DIRECTORIES("~/local_install/lib")
@@ -43,7 +44,15 @@ include_directories(${ASSIMP_INCLUDE_DIRS})
 link_directories(${ASSIMP_LIBRARY_DIRS})
 ###  ASSIMP  ###}}}
 
+### Framework ###
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+set(FRAMEWORK_SRC lib/myOwnFramework.cpp lib/myOwnFramework.h)
+add_library(FrameworkHakurei ${FRAMEWORK_SRC})
+### --------- ###
+
 ### Creating an executable
-add_executable(myOwnOpenGLProg myOwnOpenGLProg.cpp myOwnFramework.cpp)
-target_link_libraries(myOwnOpenGLProg  ${GL_LIBRARIES} ${APPLE_FRAMEWORKS} ${GLFW3_STATIC_LIBRARIES} ${ASSIMP_LIBRARIES})
+add_executable(myOwnOpenGLProg myOwnOpenGLProg.cpp)
+target_link_libraries(FrameworkHakurei ${GL_LIBRARIES} ${APPLE_FRAMEWORKS} ${GLFW3_STATIC_LIBRARIES} ${ASSIMP_LIBRARIES})
+target_link_libraries(myOwnOpenGLProg FrameworkHakurei)
 add_dependencies(myOwnOpenGLProg resources)
