@@ -1,22 +1,24 @@
-#ifndef __TETRIS__TETRIS_BLOC__
-#define __TETRIS__TETRIS_BLOC__
+#ifndef __TETRIS__BLOC_
+#define __TETRIS__BLOC_
 
-#include "lib/all.h"
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
-class Tetris_Bloc
-{
- private:
-	
+class Tetris_Bloc{
+
+private:
+
 	bool _check;
 	int _value;  // Exemple pour bloc "rare" qui valent plus de point 
 	int _color;
-    Hakurei::Mesh* mesh;
-	
- public:
- 
+
+public:
+
 	Tetris_Bloc();
 	Tetris_Bloc(bool ch,int v,int c);
- 
+
 	bool isEmpty();
 	int getValue();
 	int getColor();
@@ -25,5 +27,6 @@ class Tetris_Bloc
 	void setColor(int c);
 
 };
+
 
 #endif

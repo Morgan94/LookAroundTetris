@@ -1,4 +1,4 @@
-#include "Tetris_Bloc.h"
+#include "GameLogic/include/Tetris_Bloc.h"
 
 
 Tetris_Bloc::Tetris_Bloc(){
@@ -22,9 +22,9 @@ bool Tetris_Bloc::isEmpty(){
 	return !_check;
 }
 
-void Tetris_Bloc::setCheck(bool c){
+void Tetris_Bloc::setCheck(bool ch){
 	
-	_check = c;
+	_check = ch;
 }
 	
 int Tetris_Bloc::getValue(){
