@@ -13,7 +13,6 @@ LINK_DIRECTORIES("~/local_install/lib")
 LINK_DIRECTORIES("/usr/local/lib")
 INCLUDE_DIRECTORIES("/usr/local/include")
 INCLUDE_DIRECTORIES("~/local_install/include")
-INCLUDE_DIRECTORIES("/home/eleves/promo17/info/bbinet/workspace/2A/OpenGLProject/freetype-2.4.0/include")
 ###  Settings  ###}}}
 
 ###  OpenGL  ###{{{
@@ -48,12 +47,20 @@ link_directories(${ASSIMP_LIBRARY_DIRS})
 ### Framework ###
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-set(FRAMEWORK_SRC lib/myOwnFramework.cpp lib/myOwnFramework.h)
+set(FRAMEWORK_SRC lib/Hakurei_ShaderProgram.cpp  lib/Hakurei_ShaderProgram.h  lib/Hakurei_Material.cpp  lib/Hakurei_Material.h  lib/Hakurei_Texture.cpp  lib/Hakurei_Texture.h  lib/Hakurei_Mesh.cpp  lib/Hakurei_Mesh.h  lib/Hakurei_KeyHandler.cpp  lib/Hakurei_KeyHandler.h  lib/Hakurei_OpenCamera.cpp lib/Hakurei_OpenCamera.h  lib/Hakurei_OpenScene.cpp  lib/Hakurei_OpenScene.h  lib/Hakurei_Utils.cpp  lib/Hakurei_Utils.h  lib/all.h)
 add_library(FrameworkHakurei ${FRAMEWORK_SRC})
 ### --------- ###
 
+
+### Source files ###
+set(GAME_PHYSIC  GamePhysic/Tetris_GamePhysic.cpp  GamePhysic/Tetris_GamePhysic.h)
+set(GAME_LOGIC  GameLogic/Tetris_Bloc.cpp  GameLogic/Tetris_Bloc.h  GameLogic/Tetris_Matrix.cpp  GameLogic/Tetris_Matrix.h)
+
+
+### ------------ ###
+
+
 ### Creating an executable
-add_executable(myOwnOpenGLProg myOwnOpenGLProg.cpp)
+add_executable(LookAroundTetris main.cpp ${GAME_PHYSIC} ${GAME_LOGIC})
 target_link_libraries(FrameworkHakurei ${GL_LIBRARIES} ${APPLE_FRAMEWORKS} ${GLFW3_STATIC_LIBRARIES} ${ASSIMP_LIBRARIES})
-target_link_libraries(myOwnOpenGLProg FrameworkHakurei)
-add_dependencies(myOwnOpenGLProg resources)
+target_link_libraries(LookAroundTetris FrameworkHakurei)
