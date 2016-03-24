@@ -4,7 +4,7 @@ project(myOwnFramework)
 enable_testing()
 
 ###  Settings  ###{{{
-set(CMAKE_CXX_FLAGS "-std=c++11 -DGL_GLEXT_PROTOTYPES -I/opt/X11/include") # Don't forget to define GL_GLEXT_PROTOTYPES to ensure that the glCreateShader and other prototypes are declared. Note we could do it in the main file via "#define GL_GLEXT_PROTOTYPES" before "#include <GL/glext.h>"
+set(CMAKE_CXX_FLAGS "-std=c++11 -DGL_GLEXT_PROTOTYPES -I/opt/X11/include -L/home/eleves/promo17/info/bbinet/workspace/2A/OpenGLProject/freetype-2.4.0 -lfreetype") # Don't forget to define GL_GLEXT_PROTOTYPES to ensure that the glCreateShader and other prototypes are declared. Note we could do it in the main file via "#define GL_GLEXT_PROTOTYPES" before "#include <GL/glext.h>"
 ## setting build type to debug
 add_compile_options(-DUSE_FRAMEWORK__HAKUREI)
 set(CMAKE_CXX_FLAGS_DEBUG "-g")

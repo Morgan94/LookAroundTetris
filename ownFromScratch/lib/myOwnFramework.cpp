@@ -1453,7 +1453,7 @@ void Hakurei::OpenScene::updateProgramUniforms(ShaderProgram* prog, Hakurei::Mes
 
 void Hakurei::TextDisplay::init()
 {
-    FT_Error error = FT_Init_FreeType(&_library);
+    /*FT_Error error = FT_Init_FreeType(&_library);
     if(error)
     {
         std::cerr << "Error code (" << error <<"): an error occured during library initialization." << ENDL;
@@ -1471,7 +1471,7 @@ void Hakurei::TextDisplay::init()
     {
         std::cerr << "Error code (" << error <<"): The font file could not be opened or read, or is broken." << ENDL;
         return;
-    }
+    }*/
 
 }
 
