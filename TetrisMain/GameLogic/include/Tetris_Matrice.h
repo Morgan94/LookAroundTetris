@@ -1,3 +1,6 @@
+#ifndef __TETRIS__MATRIX__
+#define __TETRIS__MATRIX__
+
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -22,6 +25,8 @@ class Tetris_Matrice{
 	void display();
     Tetris_Bloc** operator[](int ligne);
 	int rowFull();
-	bool defeat();
 	
 };
+
+
+#endif

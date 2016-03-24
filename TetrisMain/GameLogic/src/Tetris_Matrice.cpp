@@ -1,4 +1,4 @@
-#include "Tetris_Matrice.h"
+#include "GameLogic/include/Tetris_Matrice.h"
 
 
 Tetris_Matrice::Tetris_Matrice(int nl,int nc){
@@ -50,20 +50,6 @@ void Tetris_Matrice::deleteRow(int num){
 			else{}
 		}
 	}
-}
-
-bool Tetris_Matrice::defeat(){
-	
-	bool defeat = false;
-	for(int i=0;i<4;i++){
-		for(int j=0;j<_nc;j++){
-			if(!((*this)[i][j]->isEmpty())){
-					defeat = true;
-			}
-		}		
-	}
-	return defeat;
-
 }
 
 

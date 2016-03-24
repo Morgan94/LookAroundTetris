@@ -74,6 +74,7 @@ void updateStuff()
 {
     KEY_UPDATE;
     CAMERA_UPDATE;
+    getScene()->initDrawingScene();
 }
 
 void enableThings()

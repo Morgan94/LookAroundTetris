@@ -30,6 +30,10 @@ namespace Hakurei
         Uint32* _I;
         Uint32 length_i;
 
+        // property set when adding object in scene
+        String meshName;
+
+
         Mesh();
         void computeNormals();
         void getPositions();
@@ -48,7 +52,7 @@ namespace Hakurei
         //void objData(); <-- for debug purpose
 
         // standard mesh creation routines
-        void createCube(float w, float d, float h, Vec4f color);
+        void createCube(float wi, float de, float he, Vec4f color);
 
     private:
         String fixObjFile(String OBJfile); // fill UVs if obj has no UV

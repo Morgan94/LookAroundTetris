@@ -1,14 +1,15 @@
-#include "Tetris_Bloc.h"
+#include "GameLogic/include/Tetris_Bloc.h"
 
 
 Tetris_Bloc::Tetris_Bloc(){
 	
 	_check = false;
 	_value = 1;
+	_color = 1;
 	
 }
 
-Tetris_Bloc::Tetris_Bloc(bool ch,int v,color c){
+Tetris_Bloc::Tetris_Bloc(bool ch,int v,int c){
 	
 	_check = ch;
 	_value = v;
@@ -31,7 +32,7 @@ int Tetris_Bloc::getValue(){
 	return _value;
 }
 
-color Tetris_Bloc::getColor(){
+int Tetris_Bloc::getColor(){
 		
 	return _color;
 }
@@ -41,7 +42,7 @@ void Tetris_Bloc::setValue(int v){
 	_value = v;
 }
 
-void Tetris_Bloc::setColor(color c){
+void Tetris_Bloc::setColor(int c){
 		
 	_color = c;
 }

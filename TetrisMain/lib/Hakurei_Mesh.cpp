@@ -23,6 +23,7 @@ Hakurei::Mesh::Mesh()
     length_u = 0;
     length_c = 0;
     length_i = 0;
+    meshName = "";
 
     //--------- Creation and activation
     glGenVertexArrays(1, &vao);
@@ -423,14 +424,49 @@ void Hakurei::Mesh::objData()
 
 
 
-void Hakurei::Mesh::createCube(float w, float d, float h, Vec4f color)
+void Hakurei::Mesh::createCube(float wi, float de, float he, Vec4f color)
 {
+    // Hot fix - Weird axes //
+    float h = wi;
+    float w = he;
+    float d = de;
+    // -------------------- //
+
     if(w <= 0 || d <= 0 || h <= 0)
     {
         CERR << "Warning : dimensions must be positive." << ENDL;
         return;
     }
+    vertices.clear();
+    triangles.clear();
 
+    vertices.push_back(Hakurei::Vertex(Vec3f(-w/2,h/2,-d/2),Vec3f(),Vec3f(),Vec2f(),color));
+    vertices.push_back(Hakurei::Vertex(Vec3f(w/2,h/2,-d/2),Vec3f(),Vec3f(),Vec2f(),color));
+    vertices.push_back(Hakurei::Vertex(Vec3f(w/2,h/2,d/2),Vec3f(),Vec3f(),Vec2f(),color));
+    vertices.push_back(Hakurei::Vertex(Vec3f(-w/2,h/2,d/2),Vec3f(),Vec3f(),Vec2f(),color));
+    vertices.push_back(Hakurei::Vertex(Vec3f(-w/2,-h/2,-d/2),Vec3f(),Vec3f(),Vec2f(),color));
+    vertices.push_back(Hakurei::Vertex(Vec3f(w/2,-h/2,-d/2),Vec3f(),Vec3f(),Vec2f(),color));
+    vertices.push_back(Hakurei::Vertex(Vec3f(w/2,-h/2,d/2),Vec3f(),Vec3f(),Vec2f(),color));
+    vertices.push_back(Hakurei::Vertex(Vec3f(-w/2,-h/2,d/2),Vec3f(),Vec3f(),Vec2f(),color));
 
+    triangles.push_back(Hakurei::Triangle(0,3,2));
+    triangles.push_back(Hakurei::Triangle(2,1,0));
+
+    triangles.push_back(Hakurei::Triangle(2,6,5));
+    triangles.push_back(Hakurei::Triangle(5,1,2));
+
+    triangles.push_back(Hakurei::Triangle(1,5,4));
+    triangles.push_back(Hakurei::Triangle(4,0,1));
+
+    triangles.push_back(Hakurei::Triangle(0,4,7));
+    triangles.push_back(Hakurei::Triangle(7,3,0));
+
+    triangles.push_back(Hakurei::Triangle(3,7,6));
+    triangles.push_back(Hakurei::Triangle(6,2,3));
+
+    triangles.push_back(Hakurei::Triangle(4,5,6));
+    triangles.push_back(Hakurei::Triangle(6,7,4));
+
+    computeNormals();
 }
 

@@ -29,7 +29,7 @@ namespace Hakurei
         // used texture unit
         Uint32 textureUnit;
 
-        OpenScene();
+        OpenScene(Bool Camera_DefaultCallBacks = true, Bool Camera_RotateAroundTarget = true, Vec3f Camera_Target = Vec3f(0,0,0));
         Hakurei::Mesh* getObjectByName(String objName);
         Hakurei::Material* getMaterialByName(String matName);
         void updateCamera();
