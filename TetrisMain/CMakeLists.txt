@@ -54,13 +54,13 @@ add_library(FrameworkHakurei ${FRAMEWORK_SRC})
 
 ### Source files ###
 set(GAME_PHYSIC  GamePhysic/Tetris_GamePhysic.cpp  GamePhysic/Tetris_GamePhysic.h  GamePhysic/Tetris_Shape.cpp  GamePhysic/Tetris_Shape.h  GamePhysic/Tetris_3DBloc.cpp  GamePhysic/Tetris_3DBloc.h)
-set(GAME_LOGIC  GameLogic/src/Tetris_Bloc.cpp  GameLogic/include/Tetris_Bloc.h  GameLogic/src/Tetris_Matrice.cpp  GameLogic/include/Tetris_Matrice.h)
+set(GAME_LOGIC  GameLogic/src/Tetris_Bloc.cpp  GameLogic/include/Tetris_Bloc.h  GameLogic/src/Tetris_Matrice.cpp  GameLogic/include/Tetris_Matrice.h GameLogic/src/Tetris_Player.cpp GameLogic/include/Tetris_Player.h)
 
 
 ### ------------ ###
 
 
 ### Creating an executable
-add_executable(LookAroundTetris main_test.cpp ${GAME_PHYSIC} ${GAME_LOGIC})
+add_executable(LookAroundTetris main.cpp ${GAME_PHYSIC} ${GAME_LOGIC})
 target_link_libraries(FrameworkHakurei ${GL_LIBRARIES} ${APPLE_FRAMEWORKS} ${GLFW3_STATIC_LIBRARIES} ${ASSIMP_LIBRARIES})
 target_link_libraries(LookAroundTetris FrameworkHakurei)

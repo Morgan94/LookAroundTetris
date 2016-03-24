@@ -7,7 +7,6 @@
 **Team leader :** Lacherez Sylvain
 
 ### Folder contents
-* **OwnFromScratch :** FromScratch demo
 * New tree : Files are now in **TetrisMain** :
     * **GameLogic** 
     * **GamePhysic**
