@@ -23,6 +23,7 @@ Hakurei::Mesh::Mesh()
     length_u = 0;
     length_c = 0;
     length_i = 0;
+    meshName = "";
 
     //--------- Creation and activation
     glGenVertexArrays(1, &vao);
@@ -423,14 +424,19 @@ void Hakurei::Mesh::objData()
 
 
 
-void Hakurei::Mesh::createCube(float w, float d, float h, Vec4f color)
+void Hakurei::Mesh::createCube(float wi, float de, float he, Vec4f color)
 {
+    // Hot fix - Weird axes //
+    float h = wi;
+    float w = he;
+    float d = de;
+    // -------------------- //
+
     if(w <= 0 || d <= 0 || h <= 0)
     {
         CERR << "Warning : dimensions must be positive." << ENDL;
         return;
     }
-
     vertices.clear();
     triangles.clear();
 

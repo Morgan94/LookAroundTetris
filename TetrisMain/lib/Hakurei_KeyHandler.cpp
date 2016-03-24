@@ -6,23 +6,44 @@ Hakurei::KeyHandler::KeyHandler(Bool _keyRepeat)
     NO_PERMISSION
     for(int i=0; i<GLFW_KEYS; i++)
         key[i] = false;
-    keyRepeat = _keyRepeat;
+    if(_keyRepeat)
+    {
+        for(Uint32 i=0; i<GLFW_KEYS; i++)
+            keyRepeat[i] = true;
+    }
+    else
+    {
+        for(Uint32 i=0; i<GLFW_KEYS; i++)
+            keyRepeat[i] = false;
+    }
     glfwSetInputMode(glfwGetCurrentContext(), GLFW_STICKY_KEYS, GL_TRUE);
 }
 
-void Hakurei::KeyHandler::enableKeyRepeat()
+void Hakurei::KeyHandler::enableKeyRepeat(Sint32 key)
 {
-    keyRepeat = true;
+    if(key != -1)
+        keyRepeat[key] = true;
+    else
+    {
+        for(Uint32 i=0; i<GLFW_KEYS; i++)
+            keyRepeat[i] = true;
+    }
 }
 
-void Hakurei::KeyHandler::disableKeyRepeat()
+void Hakurei::KeyHandler::disableKeyRepeat(Sint32 key)
 {
-    keyRepeat = false;
+    if(key != -1)
+        keyRepeat[key] = false;
+    else
+    {
+        for(Uint32 i=0; i<GLFW_KEYS; i++)
+            keyRepeat[i] = false;
+    }
 }
 
 void Hakurei::KeyHandler::update()
 {
-    static Bool oldContext[GLFW_KEYS]; // used only when keyRepeat is disabled
+    static Bool oldContext[GLFW_KEYS];
     static Bool initialized = false;
 
     if(!initialized)
@@ -38,7 +59,7 @@ void Hakurei::KeyHandler::update()
     {
         if(glfwGetKey(window,k) == GLFW_PRESS) // key pressed
         {
-            if(!keyRepeat && oldContext[k])
+            if(!keyRepeat[k] && oldContext[k])
             {
                 key[k] = false;
             }

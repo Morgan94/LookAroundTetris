@@ -1,79 +1,72 @@
 #include "GamePhysic/Tetris_Shape.h"
 
 
-Tetris_3DBloc::Tetris_3DBloc(Hakurei::Mesh *_bloc, Vec2f _pos) : Tetris_Bloc()
+
+
+Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
 {
-    bloc = _bloc;
-    pos = _pos;
-
-}
-
-
-
-
-
-Tetris_Shape::Tetris_Shape(Uint8 blocType, Vec4f color)
-{
-    pos2D = Vec2f(0,0);
-    pos3D = Vec3f(pos2D,0); // <--- use function to convert 2D pos to 3D Scene pos
+    pos2D = initialPos;
+    blocs.clear();
 
     Hakurei::Mesh* tbloc = NULL;
-    Hakurei::OpenScene* scene = getScene();
-    switch(blocType)
+    switch(shapeType)
     {
     case 0:
-/* []
-   [][]
-     [] */
+/* [][]
+     [][] */
+        tbloc = new Hakurei::Mesh();
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, Vec4f(1,0,0,1));
+        blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, H_BLOC), "SHAPE0_0"));
+        tbloc = new Hakurei::Mesh();
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, Vec4f(1,0,0,1));
+        blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, H_BLOC), "SHAPE0_1"));
+        tbloc = new Hakurei::Mesh();
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, Vec4f(1,0,0,1));
+        blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, 0), "SHAPE0_2"));
+        tbloc = new Hakurei::Mesh();
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, Vec4f(1,0,0,1));
+        blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(W_BLOC, 0), "SHAPE0_3"));
+        break;
 
+    case 1:
+/*   []
+   [][][] */
         // Up-left bloc
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, color);
-        blocs["SHAPE_0_UL"] = new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC/2, H_BLOC));
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, Vec4f(0.5,0,1,1));
+        blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, 0), "SHAPE1_0"));
         // Middle-left bloc
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, color);
-        blocs["SHAPE_0_ML"] = new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC/2, 0));
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, Vec4f(0.5,0,1,1));
+        blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, 0), "SHAPE1_1"));
         // Middle-right bloc
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, color);
-        blocs["SHAPE_0_MR"] = new Tetris_3DBloc(tbloc, Vec2f(W_BLOC/2, 0));
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, Vec4f(0.5,0,1,1));
+        blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(W_BLOC, 0), "SHAPE1_2"));
         // Down-right bloc
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, color);
-        blocs["SHAPE_0_DR"] = new Tetris_3DBloc(tbloc, Vec2f(W_BLOC/2, -H_BLOC));
-
-
-        // CREATE ADD SHAPE TO SCENE FUNCTION
-        typedef Map<String, Tetris_3DBloc*>::iterator it_bloc;
-        for(it_bloc iterator = blocs.begin(); iterator != blocs.end(); iterator++)
-        {
-            scene->addObject(iterator->first, iterator->second->bloc);
-        }
-
-
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, Vec4f(0.5,0,1,1));
+        blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, H_BLOC), "SHAPE1_3"));
         break;
 
 
     }
 
+    type = shapeType;
+
 }
+
+
 
 
 
 void Tetris_Shape::drawShapeInScene(String matName)
 {
-    Hakurei::OpenScene* scene = getScene();
-    Hakurei::Mesh* tbloc = NULL;
     Tetris_3DBloc* bloc3d = NULL;
-    typedef Map<String, Tetris_3DBloc*>::iterator it_bloc;
 
-
-    for(it_bloc iterator = blocs.begin(); iterator != blocs.end(); iterator++)
+    for(Uint32 i=0; i<blocs.size(); i++)
     {
-        tbloc = scene->getObjectByName(iterator->first);
-        bloc3d = iterator->second;
-        tbloc->transform(TRANSFORM_TRANSLATION, SET_TRANSFORM, Vec3f(pos2D + bloc3d->pos, 0));
-        scene->drawObjectInScene(iterator->first, matName);
+        bloc3d = blocs[i];
+        bloc3d->drawBlocInScene(matName, pos2D);
     }
 }

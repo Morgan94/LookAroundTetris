@@ -1,113 +1,141 @@
 #include "Hakurei_OpenCamera.h"
 
-Hakurei::OpenCamera::OpenCamera()
+Hakurei::OpenCamera::OpenCamera(Bool defaultCallbacks, Bool _rotateCameraAroundCenter, Vec3f _cameraTarget)
 {
     NO_PERMISSION
-    position = Vec3f(0,0,5);
+    position = Vec3f(0,0,-12);
     FoV = PI / 4.0f;
-    angleV = PI;
+    angleV = 0;
     angleH = 0;
     camSpeed = 3.0f;
     angleSpeed = 1.5f;
-    mouseX = SCREEN_W/2;
-    mouseY = SCREEN_H/2;
-    glfwSetCursorPos(glfwGetCurrentContext(), mouseX, mouseY);
-
+    rotateCameraAroundCenter = _rotateCameraAroundCenter;
+    cameraTarget = _cameraTarget;
+    callbacks.clear();
+    if(defaultCallbacks)
+    {
+        callbacks[GLFW_KEY_UP] = &RotateUp;
+        callbacks[GLFW_KEY_DOWN] = &RotateDown;
+        callbacks[GLFW_KEY_LEFT] = &RotateLeft;
+        callbacks[GLFW_KEY_RIGHT] = &RotateRight;
+        callbacks[GLFW_KEY_W] = &MoveForward;
+        callbacks[GLFW_KEY_S] = &MoveBackward;
+        callbacks[GLFW_KEY_A] = &MoveLeft;
+        callbacks[GLFW_KEY_D] = &MoveRight;
+        callbacks[GLFW_KEY_Q] = &MoveUp;
+        callbacks[GLFW_KEY_Z] = &MoveDown;
+    }
 }
 
-void Hakurei::OpenCamera::moveCameraFromInputs()
+
+// Default Key Callbacks //
+
+void RotateUp(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
 {
-    GLFWwindow* window = glfwGetCurrentContext();
-    static double lastTime = glfwGetTime();
-    double currentTime = glfwGetTime();
-    float deltaTime = (float)(currentTime - lastTime);
+    camera->angleV -= deltaTime * camera->angleSpeed;
+    *rotated = true;
+}
 
-    // Get mouse position
-    glfwGetCursorPos(window, &mouseX, &mouseY);
+void RotateDown(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
+{
+    camera->angleV += deltaTime * camera->angleSpeed;
+    *rotated = true;
+}
 
-    Bool rotated = false;
-    Vec3f oldDirection = direction;
+void RotateLeft(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
+{
+    camera->angleH -= deltaTime * camera->angleSpeed;
+    *rotated = true;
+}
 
-    // Rotate up
-    if(KEY_PRESSED(GLFW_KEY_UP))
-    {
-        angleV += deltaTime * angleSpeed;
-        rotated = true;
-    }
+void RotateRight(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
+{
+    camera->angleH += deltaTime * camera->angleSpeed;
+    *rotated = true;
+}
 
-    // Rotate down
-    if(KEY_PRESSED(GLFW_KEY_DOWN))
-    {
-        angleV -= deltaTime * angleSpeed;
-        rotated = true;
-    }
+void MoveForward(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
+{
+    camera->position += camera->direction * deltaTime * camera->camSpeed;
+}
 
-    // Rotate left
-    if(KEY_PRESSED(GLFW_KEY_LEFT))
-    {
-        angleH += deltaTime * angleSpeed;
-        rotated = true;
-    }
+void MoveBackward(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
+{
+    camera->position -= camera->direction * deltaTime * camera->camSpeed;
+}
 
-    // Rotate right
-    if(KEY_PRESSED(GLFW_KEY_RIGHT))
-    {
-        angleH -= deltaTime * angleSpeed;
-        rotated = true;
-    }
+void MoveRight(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
+{
+    camera->position += camera->rightvector * deltaTime * camera->camSpeed;
+}
 
+void MoveLeft(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
+{
+    camera->position -= camera->rightvector * deltaTime * camera->camSpeed;
+}
+
+void MoveUp(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
+{
+    camera->position += camera->upvector * deltaTime * camera->camSpeed;
+}
+
+void MoveDown(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
+{
+    camera->position -= camera->upvector * deltaTime * camera->camSpeed;
+}
+
+// ------------------------ //
+
+
+
+
+void Hakurei::OpenCamera::computeCameraMark()
+{
     // Direction : Spherical coordinates to Cartesian coordinates conversion
     direction = Vec3f(  cos(angleV) * sin(angleH),
                         sin(angleV),
                         cos(angleV) * cos(angleH));
-
     // Right vector
     rightvector = Vec3f(sin(angleH - PI/2.0f),
                         0,
                         cos(angleH - PI/2.0f));
-
     // Up vector
     upvector = glm::cross(rightvector, direction);
+}
 
-    // Move forward ^
-    if(KEY_PRESSED(GLFW_KEY_W))
+
+
+void Hakurei::OpenCamera::moveCameraFromInputs()
+{
+    static double lastTime = glfwGetTime();
+    double currentTime = glfwGetTime();
+    float deltaTime = (float)(currentTime - lastTime);
+
+    Bool rotated = false;
+    Vec3f oldDirection = direction;
+
+
+
+    typedef CallbackMap::iterator it_kcb;
+    for(it_kcb iterator = callbacks.begin(); iterator != callbacks.end(); iterator++)
     {
-        position += direction * deltaTime * camSpeed;
+        if(KEY_PRESSED(iterator->first))
+        {
+            if(iterator->second != NULL)
+            {
+                (*iterator->second)(this, deltaTime, &rotated);
+                computeCameraMark();
+            }
+        }
     }
+    computeCameraMark(); // must be called at least once
 
-    // Move backward v
-    if(KEY_PRESSED(GLFW_KEY_S))
-    {
-        position -= direction * deltaTime * camSpeed;
-    }
 
-    // Move right >
-    if(KEY_PRESSED(GLFW_KEY_D))
+    if(rotated) // move camera around target position (origin for the moment)
     {
-        position += rightvector * deltaTime * camSpeed;
-    }
-
-    // Move left <
-    if(KEY_PRESSED(GLFW_KEY_A))
-    {
-        position -= rightvector * deltaTime * camSpeed;
-    }
-
-    // Move up ^
-    if(KEY_PRESSED(GLFW_KEY_Q))
-    {
-        position += upvector * deltaTime * camSpeed;
-    }
-
-    // Move down v
-    if(KEY_PRESSED(GLFW_KEY_Z))
-    {
-        position -= upvector * deltaTime * camSpeed;
-    }
-
-    if(rotated) // move camera around target position
-    {
-        position += Vec3f(oldDirection - direction) * 5.0f;
+        Vec3f distCamCenter = position - cameraTarget;
+        double distance = sqrt(distCamCenter[0] * distCamCenter[0] + distCamCenter[1] * distCamCenter[1] + distCamCenter[2] * distCamCenter[2]);
+        position += Vec3f(oldDirection - direction) * (float)(distance);
     }
     lastTime = currentTime;
 }

@@ -9,11 +9,11 @@ namespace Hakurei
     {
     public:
         Bool key[GLFW_KEYS];
-        Bool keyRepeat;
+        Bool keyRepeat[GLFW_KEYS];
 
         KeyHandler(Bool _keyRepeat = false);
-        void enableKeyRepeat();
-        void disableKeyRepeat();
+        void enableKeyRepeat(Sint32 key = -1);
+        void disableKeyRepeat(Sint32 key = -1);
         void update();
         Bool pressed(Sint32 k);
         void resetKeyState();
