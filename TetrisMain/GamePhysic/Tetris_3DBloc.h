@@ -10,6 +10,14 @@
 
 #define R_CYL       (24.0 / (2.0*PI))
 
+#define RED Vec4f(1,0,0,1)
+#define PURPLE Vec4f(0.5,0,1,1)
+#define GREEN Vec4f(0,1,0,1)
+#define YELLOW Vec4f(1,1,0,1)
+#define BLEU Vec4f(0,0,1,1)
+#define ORANGE Vec4f(1,0.6,0,1)
+#define CYAN Vec4f(0,1,1,1)
+
 
 class Tetris_3DBloc
 {

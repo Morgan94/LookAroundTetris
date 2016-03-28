@@ -17,7 +17,7 @@ void make_resources(void)
     scene->addMaterial("mat",mat1);
 
 
-    shape = new Tetris_Shape(1);
+    shape = new Tetris_Shape(6);
 
 
     Hakurei::Mesh* center = new Hakurei::Mesh();
