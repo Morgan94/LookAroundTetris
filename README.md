@@ -20,7 +20,7 @@
   * Callback function link to the camera (keyboard inputs)
 * **GamePhysics Update:**
   * Tetris_3DBloc discribe a Bloc in 3D 
-  * Tetris_Shape class manipulating the Shapes created from the blocs (2 differents shapes)
+  * Tetris_Shape class manipulating the Shapes created from the blocs (7 basic shapes)
   
 * **Still no links between Logic & Physics**  
 * **New CmakeLists**
