@@ -15,16 +15,16 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
 /* [][]    //Red
      [][] */
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, RED);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_RED);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, H_BLOC), "SHAPE0_0"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, RED);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_RED);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, H_BLOC), "SHAPE0_1"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, RED);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_RED);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, 0), "SHAPE0_2"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, RED);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_RED);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(W_BLOC, 0), "SHAPE0_3"));
         break;
 
@@ -33,19 +33,19 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
    [][][] */
         // Up-left bloc
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, PURPLE);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_PURPLE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, 0), "SHAPE1_0"));
         // Middle-left bloc
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, PURPLE);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_PURPLE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, 0), "SHAPE1_1"));
         // Middle-right bloc
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, PURPLE);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_PURPLE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(W_BLOC, 0), "SHAPE1_2"));
         // Down-right bloc
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, PURPLE);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_PURPLE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, H_BLOC), "SHAPE1_3"));
         break;
 
@@ -53,16 +53,16 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
 /*  [][]   //Green
   [][]    */
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, GREEN);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_GREEN);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(W_BLOC, H_BLOC), "SHAPE2_0"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, GREEN);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_GREEN);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, H_BLOC), "SHAPE2_1"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, GREEN);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_GREEN);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, 0), "SHAPE2_2"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, GREEN);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_GREEN);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, 0), "SHAPE2_3"));
         break;
 
@@ -70,16 +70,16 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
 /* [][]   //Yellow
    [][]  */
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, YELLOW);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_YELLOW);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, H_BLOC), "SHAPE3_0"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, YELLOW);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_YELLOW);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, H_BLOC), "SHAPE3_1"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, YELLOW);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_YELLOW);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, 0), "SHAPE3_2"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, YELLOW);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_YELLOW);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, 0), "SHAPE3_3"));
         break;
 
@@ -87,16 +87,16 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
 /* []      //Bleu
    [][][] */
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, BLEU);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_BLUE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, H_BLOC), "SHAPE4_0"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, BLEU);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_BLUE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(W_BLOC, 0), "SHAPE4_1"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, BLEU);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_BLUE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, 0), "SHAPE4_2"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, BLEU);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_BLUE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, 0), "SHAPE4_3"));
         break;
 
@@ -104,16 +104,16 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
  /*     []   //Orange
     [][][]  */
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, ORANGE);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_ORANGE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(W_BLOC, H_BLOC), "SHAPE5_0"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, ORANGE);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_ORANGE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(W_BLOC,0), "SHAPE5_1"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, ORANGE);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_ORANGE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, 0), "SHAPE5_2"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, ORANGE);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_ORANGE);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, 0), "SHAPE5_3"));
         break;
 
@@ -121,19 +121,29 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
  /*  [][][][] //Cyan
              */
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, CYAN);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_CYAN);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(2*W_BLOC, 0), "SHAPE6_0"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, CYAN);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_CYAN);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(W_BLOC,0), "SHAPE6_1"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, CYAN);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_CYAN);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(0, 0), "SHAPE6_2"));
         tbloc = new Hakurei::Mesh();
-        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, CYAN);
+        tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, C_CYAN);
         blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(-W_BLOC, 0), "SHAPE6_3"));
         break;
-
+    case 7:
+        //Test Tour de cercle/fond du cylindre
+        for(int i=0; i<24; i++)
+        {
+            tbloc = new Hakurei::Mesh();
+            tbloc->createCube(0.10, H_BLOC, 0.20,Vec4f(1,1,1,1));
+            String name="ShapeT_";
+            name+=i;
+            blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(i*W_BLOC, -0.55), name));
+        }
+        break;
     }
     type = shapeType;
 
