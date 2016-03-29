@@ -4,6 +4,8 @@
 #include "GamePhysic/Tetris_GamePhysic.h"
 #include "GamePhysic/Tetris_Shape.h"
 
+//------------------------
+#include <unistd.h>
 
 Tetris_Shape* shape = NULL;
 Tetris_Shape* shape2 = NULL;
@@ -117,7 +119,7 @@ void mainLoop(void)
         drawScene();
         swapBuffers();
 
-        getScene()->kh->disableKeyRepeat(GLFW_KEY_RIGHT);
+       // getScene()->kh->disableKeyRepeat(GLFW_KEY_RIGHT);
         getScene()->kh->disableKeyRepeat(GLFW_KEY_LEFT);
         if(KEY_PRESSED(GLFW_KEY_RIGHT))
             shape->pos2D += Vec2f(W_BLOC,0.0);
@@ -128,8 +130,6 @@ void mainLoop(void)
         if(KEY_PRESSED(GLFW_KEY_DOWN))
             if(shape->pos2D[1]>0.1)
                 shape->pos2D -= Vec2f(0.0,0.1);
-
-
 
     }
     while(!KEY_PRESSED(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(glfwGetCurrentContext()) == 0);
