@@ -69,7 +69,6 @@ void Tetris_Matrix::removeBloc(Sint32 x, Sint32 y)
     if(x < 0 || x >= width || y < 0 || y >= height)
         return;
 
-    Hakurei::OpenScene* scene = getScene();
     Tetris_3DBloc* bloc = get(x,y);
     bloc->deleteBloc();
     delete bloc;
@@ -86,7 +85,7 @@ void Tetris_Matrix::deleteRow(Sint32 y)
         removeBloc(x, y);
 
     // lower rows above
-    memcpy(at(0, y), at(0, y+1), sizeof(Tetris_3DBloc*) * width * (height - y - 1)); // faster than memmove (?)
+    memcpy(at(0, y), at(0, y+1), sizeof(Tetris_3DBloc*) * width * (height - y - 1));
     memset(at(0, height-1), 0, sizeof(Tetris_3DBloc*) * width);
 }
 
@@ -120,6 +119,23 @@ void Tetris_Matrix::drawMatrixInScene(String matName)
     }
     return;
 }
+
+
+/*
+bool Tetris_Matrice::defeat(){
+
+    bool defeat = false;
+    for(int i=0;i<4;i++){
+        for(int j=0;j<_nc;j++){
+            if(!((*this)[i][j]->isEmpty())){
+                    defeat = true;
+            }
+        }
+    }
+    return defeat;
+
+}
+*/
 
 
 

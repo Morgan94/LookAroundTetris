@@ -72,6 +72,7 @@ void swapBuffers()
 
 void updateStuff()
 {
+    FrameRate(60);
     KEY_UPDATE;
     CAMERA_UPDATE;
     getScene()->initDrawingScene();
@@ -115,3 +116,21 @@ void unsetCallback(GLenum key)
     getScene()->camera->callbacks[key] = NULL;
     return;
 }
+
+
+float FrameRate(float limit)
+{
+    static float last = 0;
+    if(limit > 0)
+    {
+        float delayMin = 1.0 / limit;
+        while(glfwGetTime() - last < delayMin);
+    }
+    float fps = 1.0 / (glfwGetTime() - last);
+    last = glfwGetTime();
+    return fps;
+}
+
+
+
+
