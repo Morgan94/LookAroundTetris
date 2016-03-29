@@ -3,9 +3,6 @@
 
 #include "all.h"
 
-typedef void (*KeyCallback)(Hakurei::OpenCamera*, float, Bool*);
-typedef Map<GLenum, KeyCallback> CallbackMap;
-
 namespace Hakurei
 {
     class OpenCamera

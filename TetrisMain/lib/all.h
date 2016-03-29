@@ -129,6 +129,9 @@ namespace Hakurei
     class OpenScene;
 }
 
+typedef void (*KeyCallback)(Hakurei::OpenCamera*, float, Bool*);
+typedef Map<GLenum, KeyCallback> CallbackMap;
+
 
 #ifndef USE_FRAMEWORK__HAKUREI
     #define NO_PERMISSION   exitOnError("Oops, it seems you're not allowed to use this framework. Take it easy.");

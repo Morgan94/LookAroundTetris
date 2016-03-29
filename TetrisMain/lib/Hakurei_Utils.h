@@ -26,6 +26,9 @@ void enableThings();
 void disableThings();
 void swapBuffers();
 void updateStuff();
+Sint32 fixedMod(Sint32 x, Sint32 n);
+void setCallback(GLenum key, KeyCallback func);
+void unsetCallback(GLenum key);
 
 #endif
 
