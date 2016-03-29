@@ -40,4 +40,21 @@ void Tetris_Player::updateScore(Uint32 rows)
 	return;
 }
 
+/*
 
+void Tetris_Player::computeSpeed(){
+
+    _speed = 1 + trunc(_level/10);
+}
+
+void Tetris_Player::display(){
+
+    std::cout<<"Caracteristique du joueur :"<<std::endl;
+    std::cout<<"    Score : "<<_score<<std::endl;
+    std::cout<<"    Level : "<<_level<<std::endl;
+    std::cout<<"    Time : "<<_time<<std::endl;
+    std::cout<<"    Speed : "<<_speed<<std::endl;
+
+}
+
+*/
