@@ -95,4 +95,23 @@ void disableThings()
     glDisable(GL_BLEND);
 }
 
+Sint32 fixedMod(Sint32 x, Sint32 n)
+{
+    if(n <= 0)
+        return 0;
+    Sint32 out = x % n;
+    while(out < 0) out += n;
+    return out;
+}
 
+void setCallback(GLenum key, KeyCallback func)
+{
+    getScene()->camera->callbacks[key] = func;
+    return;
+}
+
+void unsetCallback(GLenum key)
+{
+    getScene()->camera->callbacks[key] = NULL;
+    return;
+}

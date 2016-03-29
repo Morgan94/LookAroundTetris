@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include "Tetris_Matrice.h"
+#include "GameLogic/include/Tetris_Matrice.h"
 
 int main(){
 	
