@@ -6,17 +6,47 @@ Tetris_Player::Tetris_Player()
 	score = 0;
 	level = 1;
 	lines = 0;
-	start = glfwGetTime();
+    start = 0;
 	time = 0;
-	vitesse = SPEED_FACTOR * (float)(level);
+    deleteRow = 0;
+    speed = SPEED_FACTOR * (float)(level);
 }
 
+float Tetris_Player::getSpeed(){
+
+    return speed;
+}
+
+void Tetris_Player::startTime(){
+    start = glfwGetTime();
+}
 
 void Tetris_Player::updateTime()
 {
     time = glfwGetTime() - start;
 }
 
+
+void Tetris_Player::updateLevel()
+{
+    Uint32 oldLvl = level;
+    level = (Uint32)(deleteRow/10) +1;
+
+    if(oldLvl != level){
+        updateSpeed();
+    }
+}
+
+void Tetris_Player::addDeleteRow(Uint32 rows){
+
+    deleteRow += rows;
+
+}
+void Tetris_Player::incrementScore(){
+
+    score += 1;
+
+}
 
 void Tetris_Player::updateScore(Uint32 rows)
 {
@@ -40,21 +70,27 @@ void Tetris_Player::updateScore(Uint32 rows)
 	return;
 }
 
-/*
+void Tetris_Player::updateSpeed(){
 
-void Tetris_Player::computeSpeed(){
+    float inc = speed/3;
+    speed += inc;
+}
 
-    _speed = 1 + trunc(_level/10);
+void Tetris_Player::udpate_Player(Uint32 count){
+
+    addDeleteRow(count);
+    updateScore(count);
+    updateLevel();
+    updateTime();
+
 }
 
 void Tetris_Player::display(){
 
     std::cout<<"Caracteristique du joueur :"<<std::endl;
-    std::cout<<"    Score : "<<_score<<std::endl;
-    std::cout<<"    Level : "<<_level<<std::endl;
-    std::cout<<"    Time : "<<_time<<std::endl;
-    std::cout<<"    Speed : "<<_speed<<std::endl;
+    std::cout<<"    Score : "<<score<<std::endl;
+    std::cout<<"    Level : "<<level<<std::endl;
+    std::cout<<"    Time : "<<time<<std::endl;
+    std::cout<<"    Speed : "<<speed<<std::endl;
 
 }
-
-*/

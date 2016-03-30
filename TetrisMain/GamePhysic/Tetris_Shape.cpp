@@ -29,7 +29,6 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
 {
     pos2D = initialPos;
     type = shapeType;
-    rotation = 0;
     blocs.clear();
 
     Vec2f v;
@@ -63,9 +62,7 @@ Tetris_3DBloc* Tetris_Shape::ShapeBloc(Vec2f position, Vec4f color)
     return (new Tetris_3DBloc(tbloc, position));
 }
 
-/*
 
-*/
 
 void Tetris_Shape::drawShapeInScene(String matName)
 {
@@ -78,12 +75,19 @@ void Tetris_Shape::drawShapeInScene(String matName)
 }
 
 
-/*
 
-void Tetris_Shape::rotate()
+void Tetris_Shape::rotate(Uint32 n)
 {
-
-
+    Tetris_3DBloc* bloc3d = NULL;
+    n = n%4;
+    while(n > 0)
+    {
+        n--;
+        for(Uint32 i=0; i<blocs.size(); i++)
+        {
+            bloc3d = blocs[i];
+            bloc3d->localPos = Vec2f(bloc3d->localPos[1], -bloc3d->localPos[0]);
+        }
+    }
 }
 
-*/

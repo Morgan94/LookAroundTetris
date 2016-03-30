@@ -4,7 +4,7 @@
 #include "lib/all.h"
 
 #define MATRIX_WIDTH        24
-#define MATRIX_HEIGHT       24
+#define MATRIX_HEIGHT       20
 
 #include "GamePhysic/Tetris_3DBloc.h"
 #include "GamePhysic/Tetris_Shape.h"
@@ -48,6 +48,7 @@ public:
     void addShapeToMatrix(Tetris_Shape* shape);
     void removeBloc(Sint32 x, Sint32 y);
     void drawMatrixInScene(String matName);
+    bool defeat();
 
     // debug purpose
     void display();

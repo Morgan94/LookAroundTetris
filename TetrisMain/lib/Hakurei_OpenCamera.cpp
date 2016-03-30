@@ -3,7 +3,7 @@
 Hakurei::OpenCamera::OpenCamera(Bool defaultCallbacks, Bool _rotateCameraAroundCenter, Vec3f _cameraTarget)
 {
     NO_PERMISSION
-    position = Vec3f(0,6,-24);
+    position = Vec3f(0,8,-27);
     FoV = PI / 4.0f;
     angleV = 0;
     angleH = 0;

@@ -121,13 +121,13 @@ void Tetris_Matrix::drawMatrixInScene(String matName)
 }
 
 
-/*
-bool Tetris_Matrice::defeat(){
+
+bool Tetris_Matrix::defeat(){
 
     bool defeat = false;
-    for(int i=0;i<4;i++){
-        for(int j=0;j<_nc;j++){
-            if(!((*this)[i][j]->isEmpty())){
+    for(int i=MATRIX_HEIGHT-4;i<MATRIX_HEIGHT;i++){
+        for(int j=0;j<width;j++){
+            if(get(j,i)!= NULL){
                     defeat = true;
             }
         }
@@ -135,7 +135,7 @@ bool Tetris_Matrice::defeat(){
     return defeat;
 
 }
-*/
+
 
 
 
