@@ -20,10 +20,13 @@ namespace Hakurei
         Vec3f direction;
         Vec3f rightvector;
         Vec3f upvector;
-
+        // callbacks
         CallbackMap callbacks;
 
+
         OpenCamera(Bool defaultCallbacks = false, Bool _rotateCameraAroundCenter = false, Vec3f _cameraTarget = Vec3f(0,0,0));
+        void blockCamera();
+        void unblockCamera();
         void computeCameraMark();
         void moveCameraFromInputs();
     };

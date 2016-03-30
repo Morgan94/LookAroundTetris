@@ -470,3 +470,47 @@ void Hakurei::Mesh::createCube(float wi, float de, float he, Vec4f color)
     computeNormals();
 }
 
+
+
+void Hakurei::Mesh::createCylinder(float R, float h, Uint32 nbSegR, Uint32 nbSegH, Vec4f color, Bool invertFaces)
+{
+    vertices.clear();
+    triangles.clear();
+
+    float theta;
+    float currh;
+    float X, Y, Z;
+
+    // vertices
+    for(Uint32 i=0; i<=nbSegH; i++)
+    {
+        currh = h * (float)(i) / (float)(nbSegR);
+        for(Uint32 j=0; j<nbSegR; j++)
+        {
+            theta = 2 * PI * ((float)(j + 0.5) / (float)(nbSegH));
+            X = R * cos(theta);
+            Y = currh - 0.5;
+            Z = R * sin(theta);
+            vertices.push_back(Vertex(Vec3f(X, Y, Z), Vec3f(), Vec3f(), Vec2f(), color));
+        }
+    }
+
+    // indexes
+    Uint32 N = vertices.size();
+    for(Uint32 v=0; v<N-nbSegR; v++)
+    {
+        if(invertFaces)
+        {
+            triangles.push_back(Triangle((v + nbSegR - 1)%N, (v + nbSegR)%N, (v)%N));
+            triangles.push_back(Triangle((v + nbSegR)%N, (v + 1)%N, (v)%N));
+        }
+        else
+        {
+            triangles.push_back(Triangle((v)%N, (v + nbSegR)%N, (v + nbSegR - 1)%N));
+            triangles.push_back(Triangle((v)%N, (v + 1)%N, (v + nbSegR)%N));
+        }
+    }
+
+    return;
+}
+
