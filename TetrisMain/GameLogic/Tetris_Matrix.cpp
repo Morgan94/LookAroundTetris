@@ -134,6 +134,7 @@ void Tetris_Matrix::drawMatrixInScene(String matName)
 
 
 
+
 Bool Tetris_Matrix::defeat()
 {
     for(Uint32 y = height-4; y < height; y++)
@@ -146,6 +147,8 @@ Bool Tetris_Matrix::defeat()
     }
     return false;
 }
+
+
 
 
 

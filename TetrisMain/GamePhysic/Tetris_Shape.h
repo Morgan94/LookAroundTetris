@@ -34,6 +34,10 @@ private:
 
 void loadStandardBloc();
 
+void createNextShapeObject(Hakurei::Mesh* obj, Uint8 shapeType);
+
+
+
 
 
 

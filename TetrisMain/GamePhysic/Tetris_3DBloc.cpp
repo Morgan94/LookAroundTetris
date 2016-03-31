@@ -11,6 +11,7 @@ Tetris_3DBloc::Tetris_3DBloc(Hakurei::Mesh* _bloc, Vec2f _pos, Uint32 _value)
     sprintf(newBlocName, "BLOC_%u", blocNumber);
     blocName = String(newBlocName);
     blocNumber++;
+    alpha = 1.0;
 }
 
 
@@ -30,7 +31,9 @@ void Tetris_3DBloc::drawBlocInScene(String matName, Vec2f gravityCenter)
     compute2DPos(gravityCenter);
     bloc->transform(TRANSFORM_ROTATION, SET_TRANSFORM, Vec3f(0, 1, 0), (2 * PI * (float)((Uint32)(pos2D[0]))) / FL_COLS);
     bloc->transform(TRANSFORM_TRANSLATION, SET_TRANSFORM, Vec3f(R_CYL, pos2D[1], 0));
+    scene->getMaterialByName(matName)->alpha = alpha;
     scene->drawObjectInScene(blocName, matName);
+    scene->getMaterialByName(matName)->alpha = 1.0;
 }
 
 

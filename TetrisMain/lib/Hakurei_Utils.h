@@ -11,6 +11,9 @@ void init_GLEW(void);
 void GL_Initialization(void);
 void shutDown(int return_code);
 void exitOnError(String error);
+Uint32 RandomGen();
+float FrameRate(float limit = 0);
+Sint32 fixedMod(Sint32 x, Sint32 n);
 
 #include "Hakurei_ShaderProgram.h"
 #include "Hakurei_Texture.h"
@@ -26,10 +29,9 @@ void enableThings();
 void disableThings();
 void swapBuffers();
 void updateStuff();
-Sint32 fixedMod(Sint32 x, Sint32 n);
 void setCallback(GLenum key, KeyCallback func);
 void unsetCallback(GLenum key);
-float FrameRate(float limit = 0);
+
 
 #endif
 

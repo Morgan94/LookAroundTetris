@@ -10,6 +10,15 @@ Tetris_Player::Tetris_Player()
     time = 0;
     deletedRows = 0;
     speed = SPEED_FACTOR;
+
+    shape = NULL;
+    nextShape = NULL;
+    nextShapeT = 0;
+    socle = NULL;
+    matrix = NULL;
+    displaySupport = true;
+
+    scene = getScene();
 }
 
 void Tetris_Player::startTime()
@@ -86,4 +95,7 @@ void Tetris_Player::display()
     COUT << "--- Speed : " << speed << ENDL;
     COUT << "--- Rows  : " << deletedRows << ENDL;
 }
+
+
+
 

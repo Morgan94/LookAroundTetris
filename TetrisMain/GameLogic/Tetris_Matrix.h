@@ -51,7 +51,6 @@ public:
     void drawMatrixInScene(String matName);
     Bool defeat();
 
-
     // debug purpose
     void display();
 

@@ -19,11 +19,19 @@ public:
     double time;
     float speed;
     Uint32 deletedRows;
+    // Tetris objects
+    Tetris_Shape* shape;
+    Hakurei::Mesh* nextShape;
+    Uint8 nextShapeT;
+    Tetris_Shape* socle;
+    Tetris_Matrix* matrix;
+    Bool displaySupport;
+    // Ref to scene
+    Hakurei::OpenScene* scene;
+
+
 
     Tetris_Player();
-
-    float getSpeed();
-
     void startTime();
     void updateTime();
     void updateLevel();

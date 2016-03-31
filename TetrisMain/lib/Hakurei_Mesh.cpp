@@ -434,7 +434,9 @@ void Hakurei::Mesh::createCube(float wi, float de, float he, Vec4f color)
 
     if(w <= 0 || d <= 0 || h <= 0)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : dimensions must be positive." << ENDL;
+#endif
         return;
     }
     vertices.clear();
