@@ -12,9 +12,21 @@
     * **GamePhysic** 
     * **lib** : Hakurei library (copyright LookAroundTetris Team), IrrKlang (audio library). 
     * **resources** : audio files, shaders, textures and objects.
+    
+### Ongoing modifications
+High Score and Time currently displayed in console will be displayed in game window.  
 
-## Execution
-    Compile and launch in a folder "build" created in the TetrisMain folder(to access properly the resources). 
+### Execution
+    You need OpenGL and GLFW to play this game.
+    Compile and launch in a folder "build" created in the TetrisMain folder (to access properly the resources). 
+    
+    shell instructions:
+        cd yourpath/TetrisMain 
+        mkdir build
+        cd build
+        cmake ..
+        make
+        ./LookAroundTetris
 
 
 ## Overview
@@ -49,7 +61,7 @@ The score of the player increase when he destroy rows and when he speed up tetro
 
 There is 7 different tetriminos in LookAroundTetris : 
 
-![tetrominos](http://gitlab.ecole.ensicaen.fr/lacherez/LookAroundTetris/blob/master/TetrisMain/resources/TetrisSS.png)
+![tetrominos Image](http://gitlab.ecole.ensicaen.fr/lacherez/LookAroundTetris/blob/master/TetrisMain/resources/TetrisSS.png)
 
 These tetrominos will pop randomly during the game. The player is able to see the next tetromino in a small preview at the upper left corner of the screen.
 
@@ -61,15 +73,11 @@ At the upper left corner, the next falling shape is displayed.
 
 ## Technical details (Rendering) :
 
-* "Title" screen
+* "Title" screen and main music.
 * One positional light source, placed at eye-level.
 * Fading of blocks upon completion of a row.
 * Rotation of the falling block and the camera are synchronized.
-* Blocks are blown away when the game is over. 
-* "Game over" screen
-
-
-
-
-
+* Blocks are falling down when the game is over. 
+* "Game over" screen and music.
+* Current score and final score is displayed in console.
 
