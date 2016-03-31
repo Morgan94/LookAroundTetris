@@ -44,11 +44,13 @@ public:
     // logic
     void deleteRow(Sint32 row);
     Sint32 fullRow();
+    Bool rowFull(Uint32 y);
     // physic link
     void addShapeToMatrix(Tetris_Shape* shape);
     void removeBloc(Sint32 x, Sint32 y);
     void drawMatrixInScene(String matName);
-    bool defeat();
+    Bool defeat();
+
 
     // debug purpose
     void display();

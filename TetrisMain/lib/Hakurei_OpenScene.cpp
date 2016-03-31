@@ -7,11 +7,11 @@ Hakurei::OpenScene::OpenScene(Bool Camera_DefaultCallBacks, Bool Camera_RotateAr
     objects.clear();
     materials.clear();
     diffuse = glm::vec3(0.9, 0.9, 0.9);
-    specular = glm::vec3(0.6, 0.6, 0.6);
-    lightdir = glm::vec3(0.0, 0.0, 0.0);
-    lightcolor = glm::vec3(0.6, 0.6, 0.6);
-    ambient = glm::vec3(0.4, 0.4, 0.4);
-    shininess = 80.0f;
+    specular = glm::vec3(0.65, 0.65, 0.65);
+    lightdir = glm::vec3(0.0, 0.0, 1.0);
+    lightcolor = glm::vec3(0.8, 0.8, 0.8);
+    ambient = glm::vec3(0.3, 0.3, 0.3);
+    shininess = 300.0f;
     camera = new Hakurei::OpenCamera(Camera_DefaultCallBacks, Camera_RotateAroundTarget, Camera_Target);
     kh = new Hakurei::KeyHandler();
     kh->enableKeyRepeat();
@@ -101,13 +101,14 @@ void Hakurei::OpenScene::removeObject(String obj_name)
         return;
     }
 
-    delete[] objects[obj_name]->_P;
-    delete[] objects[obj_name]->_N;
-    delete[] objects[obj_name]->_T;
-    delete[] objects[obj_name]->_U;
-    delete[] objects[obj_name]->_C;
-    delete[] objects[obj_name]->_I;
-    delete objects[obj_name];
+    Hakurei::Mesh* obj = objects[obj_name];
+    delete[] obj->_P;
+    delete[] obj->_N;
+    delete[] obj->_T;
+    delete[] obj->_U;
+    delete[] obj->_C;
+    delete[] obj->_I;
+    delete obj;
     objects[obj_name] = NULL;
     return;
 }
@@ -180,7 +181,8 @@ void Hakurei::OpenScene::initDrawingScene()
 {
     typedef Map<String, Hakurei::Mesh*>::iterator it_type;
     for(it_type iterator = objects.begin(); iterator != objects.end(); iterator++) {
-        iterator->second->resetObjectTransform();
+        if(iterator->second != NULL)
+            iterator->second->resetObjectTransform();
     }
     textureUnit = -1;
 }

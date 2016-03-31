@@ -53,6 +53,7 @@ namespace Hakurei
 
         // standard mesh creation routines
         void createCube(float wi, float de, float he, Vec4f color);
+        void createCylinder(float R, float h, Uint32 nbSegR, Uint32 nbSegH, Vec4f color, Bool invertFaces);
 
     private:
         String fixObjFile(String OBJfile); // fill UVs if obj has no UV

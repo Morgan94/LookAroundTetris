@@ -36,6 +36,7 @@ Uint32 RandomGen()
 
 
 
+
 // Key Callback //
 float rota = 0;
 void RotateFix(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
@@ -44,6 +45,7 @@ void RotateFix(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
     *rotated = true;
 }
 // ------------ //
+
 
 
 // Shape updating //
@@ -55,7 +57,7 @@ void moveShape(Tetris_Shape* shape, Vec2f movement)
     while(shape->pos2D[0] >= 2*FL_COLS) shape->pos2D[0] -= FL_COLS;
 }
 
-void updateGame(Tetris_Shape* shape, Tetris_Matrix* matrix, Tetris_Player* player)
+void updateGame(Tetris_Shape* shape, Uint8 *nextShape, Tetris_Matrix* matrix, Tetris_Player* player)
 {
     if(KEY_PRESSED(GLFW_KEY_RIGHT))
     {
@@ -67,38 +69,49 @@ void updateGame(Tetris_Shape* shape, Tetris_Matrix* matrix, Tetris_Player* playe
         MOVE_LEFT(shape);
         if(checkCollision(shape, matrix, false)) {CANCEL_LEFT(shape);}
     }
-    else if(KEY_PRESSED(GLFW_KEY_DOWN))
-    {
-       shape->pos2D -= Vec2f(0.0,10*player->getSpeed());
-       player->incrementScore();
-    }
+
     if(KEY_PRESSED(GLFW_KEY_SPACE))
     {
-       shape->rotate90;
-       if(checkCollision(shape,matrix,false))
-           shape->rotate270;
+        shape->rotate90;
+        if(checkCollision(shape, matrix, false))
+            shape->rotate270;
     }
 
-    shape->pos2D -= Vec2f(0.0,player->getSpeed());
+    if(KEY_PRESSED(GLFW_KEY_DOWN))
+    {
+        shape->pos2D -= Vec2f(0.0, 0.5);
+        player->incrementScore();
+    }
+    else
+    {
+        shape->pos2D -= Vec2f(0.0, 2 * player->speed);
+    }
+
     if(checkCollision(shape, matrix, true))
     {
         float lastPos = shape->pos2D[0];
-        shape->pos2D += Vec2f(0.0, 0.6);
+        shape->pos2D += Vec2f(0.0, 0.9);
         matrix->addShapeToMatrix(shape);
-        shape = new Tetris_Shape(RandomGen(), Vec2f(lastPos,MATRIX_HEIGHT));
+
+        shape = new Tetris_Shape(*nextShape, Vec2f(lastPos, FL_ROWS));
+        *nextShape = RandomGen();
 
 
-
-        Uint32 count = 0;
-        Sint32 row = 0;
-        while((row = matrix->fullRow()) != -1)
+        Vector<Uint32> delRows;
+        delRows.clear();
+        for(Uint32 y=0; y<MATRIX_HEIGHT; y++)
+            if(matrix->rowFull(y)) delRows.push_back(y);
+        if(delRows.size() > 0)
         {
             // animation trop swag de destruction des blocs
-            matrix->deleteRow(row);
-            count++;
+            // ----------------
+            // ----------------
 
+            Sint32 row;
+            while((row = matrix->fullRow()) != -1)
+                matrix->deleteRow(row);
+            player->updateScore(delRows.size());
         }
-        player->udpate_Player(count);
 
         player->display();
     }
@@ -106,3 +119,4 @@ void updateGame(Tetris_Shape* shape, Tetris_Matrix* matrix, Tetris_Player* playe
 }
 
 // --------------------- //
+

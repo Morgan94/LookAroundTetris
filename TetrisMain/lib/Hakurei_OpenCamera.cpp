@@ -28,6 +28,9 @@ Hakurei::OpenCamera::OpenCamera(Bool defaultCallbacks, Bool _rotateCameraAroundC
 }
 
 
+
+
+
 // Default Key Callbacks //
 
 void RotateUp(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
@@ -89,6 +92,8 @@ void MoveDown(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
 
 
 
+
+
 void Hakurei::OpenCamera::computeCameraMark()
 {
     // Direction : Spherical coordinates to Cartesian coordinates conversion
@@ -130,11 +135,10 @@ void Hakurei::OpenCamera::moveCameraFromInputs()
     }
     computeCameraMark(); // must be called at least once
 
-
     if(rotated) // move camera around target position (origin for the moment)
     {
         Vec3f distCamCenter = position - cameraTarget;
-        double distance = sqrt(distCamCenter[0] * distCamCenter[0] + /*distCamCenter[1] * distCamCenter[1] +*/ distCamCenter[2] * distCamCenter[2]);
+        double distance = sqrt(distCamCenter[0] * distCamCenter[0] + distCamCenter[2] * distCamCenter[2]);
         position += Vec3f(oldDirection - direction) * (float)(distance);
     }
     lastTime = currentTime;

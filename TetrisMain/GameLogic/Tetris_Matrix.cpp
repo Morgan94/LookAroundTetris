@@ -106,6 +106,17 @@ Sint32 Tetris_Matrix::fullRow()
 }
 
 
+Bool Tetris_Matrix::rowFull(Uint32 y)
+{
+    for(Uint32 x = 0; x < width; x++)
+    {
+        if(get(x,y) == NULL)
+            return false;
+    }
+    return true;
+}
+
+
 
 void Tetris_Matrix::drawMatrixInScene(String matName)
 {
@@ -122,18 +133,18 @@ void Tetris_Matrix::drawMatrixInScene(String matName)
 
 
 
-bool Tetris_Matrix::defeat(){
 
-    bool defeat = false;
-    for(int i=MATRIX_HEIGHT-4;i<MATRIX_HEIGHT;i++){
-        for(int j=0;j<width;j++){
-            if(get(j,i)!= NULL){
-                    defeat = true;
-            }
+Bool Tetris_Matrix::defeat()
+{
+    for(Uint32 y = height-4; y < height; y++)
+    {
+        for(int x = 0; x < width; x++)
+        {
+            if(get(x,y) != NULL)
+                return true;
         }
     }
-    return defeat;
-
+    return false;
 }
 
 

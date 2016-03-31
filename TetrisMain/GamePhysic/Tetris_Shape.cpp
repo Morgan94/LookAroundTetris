@@ -7,10 +7,10 @@ const Vec2f TETRIMINO_BLOCS[7][4] = {
 {Vec2f(-1, 1), Vec2f(0, 1), Vec2f(0, 0), Vec2f(1, 0)},
 {Vec2f(0, 1), Vec2f(-1, 0), Vec2f(0, 0), Vec2f(1, 0)},
 {Vec2f(-1, 0), Vec2f(0, 0), Vec2f(0, 1), Vec2f(1, 1)},
-{Vec2f(-0.5, 0.5), Vec2f(0.5, 0.5), Vec2f(0.5, -0.5), Vec2f(-0.5, -0.5)},
+{Vec2f(0, 0), Vec2f(1, 0), Vec2f(1, -1), Vec2f(0, -1)},
 {Vec2f(-1, 0), Vec2f(0, 0), Vec2f(1, 0), Vec2f(1, 1)},
 {Vec2f(-1, 1), Vec2f(-1, 0), Vec2f(0, 0), Vec2f(1, 0)},
-{Vec2f(-1.5, 0.5), Vec2f(-0.5, 0.5), Vec2f(0.5, 0.5), Vec2f(1.5, 0.5)}
+{Vec2f(-1, 0), Vec2f(0, 0), Vec2f(1, 0), Vec2f(2, 0)}
 };
 
 const Vec4f TETRIMINO_COLORS[7] = {
@@ -39,10 +39,10 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
             v = TETRIMINO_BLOCS[type][b];
             v[0] *= W_BLOC;
             v[1] *= H_BLOC;
-            blocs.push_back(ShapeBloc(v, TETRIMINO_COLORS[type]));
+            blocs.push_back(ShapeBloc(v));
         }
     }
-    else
+    else // socle
     {
         for(int i=0; i<24; i++)
         {
@@ -51,14 +51,43 @@ Tetris_Shape::Tetris_Shape(Uint8 shapeType, Vec2f initialPos)
             blocs.push_back(new Tetris_3DBloc(tbloc, Vec2f(i*W_BLOC, -0.55)));
         }
     }
-
 }
 
 
-Tetris_3DBloc* Tetris_Shape::ShapeBloc(Vec2f position, Vec4f color)
+static Hakurei::Mesh* StandardBloc = NULL;
+void loadStandardBloc()
+{
+	if(StandardBloc == NULL)
+	{
+		StandardBloc = new Hakurei::Mesh();
+		StandardBloc->importOBJ("tetrisBloc.obj");
+		// Scaling
+        for(int i=0; i<StandardBloc->vertices.size(); i++)
+		{
+            StandardBloc->vertices[i].position[0] /= 2.0;
+            StandardBloc->vertices[i].position[1] /= 2.0;
+            StandardBloc->vertices[i].position[2] /= 2.0;
+        }
+		StandardBloc->computeNormals();
+	}
+}
+
+
+
+
+Tetris_3DBloc* Tetris_Shape::ShapeBloc(Vec2f position)
 {
     Hakurei::Mesh* tbloc = new Hakurei::Mesh();
-    tbloc->createCube(W_BLOC, H_BLOC, D_BLOC, color);
+	loadStandardBloc();
+
+    tbloc->vertices = StandardBloc->vertices;
+    tbloc->triangles = StandardBloc->triangles;
+	// Move UVs
+	float delta = (float)(type) / 7.0;
+	for(Uint32 uv=0; uv<tbloc->vertices.size(); uv++)
+        tbloc->vertices[uv].uv[0] += delta;
+    tbloc->computeNormals();
+	
     return (new Tetris_3DBloc(tbloc, position));
 }
 
@@ -91,3 +120,10 @@ void Tetris_Shape::rotate(Uint32 n)
     }
 }
 
+
+void Tetris_Shape::destroyShape()
+{
+    for(Uint32 b=0; b<blocs.size(); b++)
+        delete blocs[b]->bloc;
+    return;
+}

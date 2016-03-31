@@ -59,7 +59,7 @@ Hakurei::OpenScene* getScene()
     static Hakurei::OpenScene* scene = NULL;
 
     if(scene == NULL) {
-        scene = new Hakurei::OpenScene();
+        scene = new Hakurei::OpenScene(false);
     }
     return scene;
 }
@@ -72,7 +72,7 @@ void swapBuffers()
 
 void updateStuff()
 {
-    FrameRate(60);
+    FrameRate(30);
     KEY_UPDATE;
     CAMERA_UPDATE;
     getScene()->initDrawingScene();
@@ -81,9 +81,9 @@ void updateStuff()
 void enableThings()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    glFrontFace(GL_CCW);
+    //glEnable(GL_CULL_FACE);
+    //glCullFace(GL_BACK);
+    //glFrontFace(GL_CCW);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -91,7 +91,7 @@ void enableThings()
 
 void disableThings()
 {
-    glDisable(GL_CULL_FACE);
+    //glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_BLEND);
 }
@@ -123,8 +123,9 @@ float FrameRate(float limit)
     static float last = 0;
     if(limit > 0)
     {
-        float delayMin = 1.0 / limit;
-        while(glfwGetTime() - last < delayMin);
+        float sleepTime = (1.0 / limit) - (glfwGetTime() - last);
+        //while(glfwGetTime() - last < delayMin);
+        if(sleepTime > 0) usleep((Uint32)(sleepTime * 1000000));
     }
     float fps = 1.0 / (glfwGetTime() - last);
     last = glfwGetTime();

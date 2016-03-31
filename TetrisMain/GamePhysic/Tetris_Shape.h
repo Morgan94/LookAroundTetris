@@ -22,14 +22,17 @@ public:
 
 
     Tetris_Shape(Uint8 shapeType, Vec2f initialPos = Vec2f(0,0));
+    void destroyShape();
     void drawShapeInScene(String matName);
     void rotate(Uint32 n = 1); // rotate +90° x n
 
 private:
-    Tetris_3DBloc* ShapeBloc(Vec2f position, Vec4f color);
+    Tetris_3DBloc* ShapeBloc(Vec2f position);
 
 };
 
+
+void loadStandardBloc();
 
 
 
