@@ -15,6 +15,8 @@
     
 ### Ongoing modifications
 High Score and Time currently displayed in console will be displayed in game window.  
+As the git doesn't support file taking more than 3Mo, the git version is automatically shortened. 
+Thus, a loop in the music might appear. We'll try to correct it as soon as possible.
 
 ### Execution
     You need OpenGL and GLFW to play this game.
@@ -80,4 +82,3 @@ At the upper left corner, the next falling shape is displayed.
 * Blocks are falling down when the game is over. 
 * "Game over" screen and music.
 * Current score and final score is displayed in console.
-
