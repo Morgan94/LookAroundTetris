@@ -60,7 +60,7 @@ void loadStandardBloc()
 	if(StandardBloc == NULL)
 	{
 		StandardBloc = new Hakurei::Mesh();
-		StandardBloc->importOBJ("tetrisBloc.obj");
+        StandardBloc->importOBJ("obj/tetrisBloc.obj");
 		// Scaling
         for(int i=0; i<StandardBloc->vertices.size(); i++)
 		{
@@ -127,3 +127,48 @@ void Tetris_Shape::destroyShape()
         delete blocs[b]->bloc;
     return;
 }
+
+
+
+
+
+
+
+// Next shape -----------------------------
+void createNextShapeObject(Hakurei::Mesh* obj, Uint8 shapeType)
+{
+	if(shapeType >= 7)
+		return;
+	
+	obj->vertices.clear();
+	obj->triangles.clear();
+	
+	Uint32 index = 0;
+	for(Uint32 b=0; b<4; b++)
+	{
+		index = 4*b;
+		// create squares
+		obj->vertices.push_back(Hakurei::Vertex( Vec3f(TETRIMINO_BLOCS[shapeType][b] + Vec2f(-0.45,0.45), 0), Vec3f(), Vec3f(), Vec2f(), TETRIMINO_COLORS[shapeType]) );
+		obj->vertices.push_back(Hakurei::Vertex( Vec3f(TETRIMINO_BLOCS[shapeType][b] + Vec2f(0.45,0.45), 0), Vec3f(), Vec3f(), Vec2f(), TETRIMINO_COLORS[shapeType]) );
+		obj->vertices.push_back(Hakurei::Vertex( Vec3f(TETRIMINO_BLOCS[shapeType][b] + Vec2f(0.45,-0.45), 0), Vec3f(), Vec3f(), Vec2f(), TETRIMINO_COLORS[shapeType]) );
+		obj->vertices.push_back(Hakurei::Vertex( Vec3f(TETRIMINO_BLOCS[shapeType][b] + Vec2f(-0.45,-0.45), 0), Vec3f(), Vec3f(), Vec2f(), TETRIMINO_COLORS[shapeType]) );
+		// link squares
+		obj->triangles.push_back(Hakurei::Triangle(index + 0, index + 2, index + 1));
+		obj->triangles.push_back(Hakurei::Triangle(index + 0, index + 3, index + 2));
+	}
+	
+	// Scaling and placing
+	for(Uint32 v=0; v<obj->vertices.size(); v++)
+	{
+		obj->vertices[v].position[0] /= 10.0;
+        obj->vertices[v].position[0] -= 0.8;
+		obj->vertices[v].position[1] /= 10.0;
+        obj->vertices[v].position[1] += 0.8;
+	}
+	
+	obj->computeNormals();
+	return;
+}
+
+
+

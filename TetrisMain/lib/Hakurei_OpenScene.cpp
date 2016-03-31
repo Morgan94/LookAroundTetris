@@ -184,7 +184,6 @@ void Hakurei::OpenScene::initDrawingScene()
         if(iterator->second != NULL)
             iterator->second->resetObjectTransform();
     }
-    textureUnit = -1;
 }
 
 void Hakurei::OpenScene::drawObjectInScene(String object, String material)
@@ -204,43 +203,19 @@ void Hakurei::OpenScene::drawObjectInScene(String object, String material)
 
     if(mat->useTexture)
     {
-        textureUnit++;
-
         Uint32 textureId = mat->texture->textureID;
         Uint32 progId = mat->prog->progID;
 
         // activate the texture unit (here GL_TEXTURE_0)
-        glActiveTexture(GL_TEXTURE0 + textureUnit);
+        glActiveTexture(GL_TEXTURE0);
 
         // bind the texture
         glBindTexture(GL_TEXTURE_2D, textureId);
 
-        // Wrapping
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, mat->texture->wrapS);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, mat->texture->wrapT);
-
-        // Filtering
-        /*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mat->texture->magF);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, mat->texture->minF);*/
-        // Mipmaps
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        // Anisotropy
-        if(mat->texture->anisotropy)
-        {
-            GLfloat maxAniso = 0.0F;
-            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAniso);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT,maxAniso);
-        }
-        else
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 1.0F);
-
         // associate the chosen texture unit to the GLSL sampler
         glUseProgram(progId);
         if(mat->colorSampler.size() != 0)
-            mat->prog->setUniform(mat->colorSampler,textureUnit);
+            mat->prog->setUniform(mat->colorSampler,0);
         glUseProgram(0);
     }
 

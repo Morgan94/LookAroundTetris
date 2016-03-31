@@ -198,9 +198,10 @@ Hakurei::Texture::Texture(const String &imagepath, GLenum wrap_s, GLenum wrap_t,
 
     // Filtering
     magF = mag_filter;
-    minF = min_filter;
+    minF = GL_LINEAR_MIPMAP_LINEAR;
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magF);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minF);
+    glGenerateMipmap(GL_TEXTURE_2D);
 
     // Anisotropy
     anisotropy = aniso;

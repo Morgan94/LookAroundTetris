@@ -28,12 +28,6 @@ Bool checkCollision(Tetris_Shape* shape, Tetris_Matrix* matrix, Bool fall)
     return collision;
 }
 
-Uint32 RandomGen()
-{
-    Uint32 blocType = rand() % 7;
-    return blocType;
-}
-
 
 
 
@@ -42,13 +36,33 @@ Uint32 RandomGen()
 
 
 // Key Callback //
-float rota = 0;
+/*float rota = 0;
 void RotateFix(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
 {
     camera->angleH = rota - PI/2;
     *rotated = true;
-}
+}*/
 // ------------ //
+
+
+
+// Replace standard camera updating
+void TetrisCameraUpdate(float shapeAngle)
+{
+	Hakurei::OpenCamera* camera = getScene()->camera;
+    camera->computeCameraMark();
+    Vec3f oldDirection = camera->direction;
+	
+	camera->angleH = shapeAngle - PI/2;
+    camera->computeCameraMark();
+    Vec3f distCamCenter = camera->position - camera->cameraTarget;
+    double distance = sqrt(distCamCenter[0] * distCamCenter[0] + distCamCenter[2] * distCamCenter[2]);
+    camera->position += Vec3f(oldDirection - camera->direction) * (float)(distance);
+	
+	getScene()->updateCamera();
+	
+	return;
+}
 
 
 
@@ -63,8 +77,12 @@ void moveShape(Tetris_Shape* shape, Vec2f movement)
     while(shape->pos2D[0] >= 2*FL_COLS) shape->pos2D[0] -= FL_COLS;
 }
 
-void updateGame(Tetris_Shape* shape, Uint8 *nextShape, Tetris_Matrix* matrix, Tetris_Player* player)
+void updateGame(Tetris_Player* player)
 {
+    Tetris_Shape* shape = player->shape;
+    Tetris_Matrix* matrix = player->matrix;
+
+
     if(KEY_PRESSED(GLFW_KEY_RIGHT))
     {
         MOVE_RIGHT(shape);
@@ -99,8 +117,13 @@ void updateGame(Tetris_Shape* shape, Uint8 *nextShape, Tetris_Matrix* matrix, Te
         shape->pos2D += Vec2f(0.0, 0.9);
         matrix->addShapeToMatrix(shape);
 
-        shape = new Tetris_Shape(*nextShape, Vec2f(lastPos, FL_ROWS));
-        *nextShape = RandomGen();
+        shape = new Tetris_Shape(player->nextShapeT, Vec2f(lastPos, FL_ROWS));
+        player->nextShapeT = RandomGen();
+
+        player->scene->removeObject("next_shape");
+        player->nextShape = new Hakurei::Mesh();
+        createNextShapeObject(player->nextShape, player->nextShapeT);
+        player->scene->addObject("next_shape", player->nextShape);
 
 
         Vector<Uint32> delRows;
@@ -122,7 +145,8 @@ void updateGame(Tetris_Shape* shape, Uint8 *nextShape, Tetris_Matrix* matrix, Te
 
         player->display();
     }
-    rota = ((2 * PI * (float)((Uint32)(shape->pos2D[0]))) / FL_COLS);
+	
+    TetrisCameraUpdate(((2 * PI * (float)((Uint32)(shape->pos2D[0]))) / FL_COLS));
 }
 
 // --------------------- //

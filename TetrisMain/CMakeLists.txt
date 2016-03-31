@@ -13,6 +13,7 @@ LINK_DIRECTORIES("~/local_install/lib")
 LINK_DIRECTORIES("/usr/local/lib")
 INCLUDE_DIRECTORIES("/usr/local/include")
 INCLUDE_DIRECTORIES("~/local_install/include")
+INCLUDE_DIRECTORIES("./lib/include")
 ###  Settings  ###}}}
 
 ###  OpenGL  ###{{{
@@ -63,4 +64,4 @@ set(GAME_LOGIC  GameLogic/Tetris_Matrix.cpp  GameLogic/Tetris_Matrix.h GameLogic
 ### Creating an executable
 add_executable(LookAroundTetris main.cpp ${GAME_PHYSIC} ${GAME_LOGIC})
 target_link_libraries(FrameworkHakurei ${GL_LIBRARIES} ${APPLE_FRAMEWORKS} ${GLFW3_STATIC_LIBRARIES} ${ASSIMP_LIBRARIES})
-target_link_libraries(LookAroundTetris FrameworkHakurei)
+target_link_libraries(LookAroundTetris FrameworkHakurei "${CMAKE_CURRENT_SOURCE_DIR}/lib/libIrrKlang.so")

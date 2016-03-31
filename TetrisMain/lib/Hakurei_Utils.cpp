@@ -74,7 +74,7 @@ void updateStuff()
 {
     FrameRate(30);
     KEY_UPDATE;
-    CAMERA_UPDATE;
+    //CAMERA_UPDATE;
     getScene()->initDrawingScene();
 }
 
@@ -124,14 +124,20 @@ float FrameRate(float limit)
     if(limit > 0)
     {
         float sleepTime = (1.0 / limit) - (glfwGetTime() - last);
-        //while(glfwGetTime() - last < delayMin);
         if(sleepTime > 0) usleep((Uint32)(sleepTime * 1000000));
-
     }
     float fps = 1.0 / (glfwGetTime() - last);
     last = glfwGetTime();
     return fps;
 }
+
+Uint32 RandomGen()
+{
+    Uint32 blocType = rand() % 7;
+    return blocType;
+}
+
+
 
 
 

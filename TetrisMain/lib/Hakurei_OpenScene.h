@@ -26,8 +26,7 @@ namespace Hakurei
         float shininess;
         // key handler
         Hakurei::KeyHandler* kh;
-        // used texture unit
-        Uint32 textureUnit;
+
 
         OpenScene(Bool Camera_DefaultCallBacks = true, Bool Camera_RotateAroundTarget = true, Vec3f Camera_Target = Vec3f(0,0,0));
         Hakurei::Mesh* getObjectByName(String objName);
