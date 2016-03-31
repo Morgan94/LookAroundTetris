@@ -17,6 +17,7 @@ public:
     Vec2f pos2D; // ~= Matrix position
     // Matrix attributes
     Uint32 value;
+    float alpha;
 
 
     Tetris_3DBloc(Hakurei::Mesh* _bloc, Vec2f _pos = Vec2f(0,0), Uint32 _value = 6);

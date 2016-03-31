@@ -6,6 +6,7 @@
 
 Tetris_Player* player = NULL;
 Bool titleScreen = false;
+Uint8 screen = 0;
 
 
 using namespace irrklang;
@@ -15,8 +16,19 @@ void init_music()
     SoundEngine = createIrrKlangDevice();
     if(SoundEngine == NULL)
         exitOnError("Sound Engine not initialized correctly.");
+}
+
+void main_music()
+{
     SoundEngine->play2D("../resources/audio/TetrisTheme_WAV.wav", GL_TRUE);
 }
+
+void go_music()
+{
+    SoundEngine->stopAllSounds();
+    SoundEngine->play2D("../resources/audio/GameOver_WAV.wav", GL_FALSE);
+}
+
 
 void end_music()
 {
@@ -33,9 +45,13 @@ void make_resources(void)
     {
         // Materials
 
-        Hakurei::Material* mat0 = new Hakurei::Material("shaders/title.v.glsl", "shaders/title.f.glsl");
-        mat0->addTexture(new Hakurei::Texture("textures/TitleScreen.tga"));
-        scene->addMaterial("title_mat", mat0);
+        Hakurei::Material* mattitle = new Hakurei::Material("shaders/title.v.glsl", "shaders/title.f.glsl");
+        mattitle->addTexture(new Hakurei::Texture("textures/TitleScreen.tga"));
+        scene->addMaterial("title_mat", mattitle);
+
+        Hakurei::Material* matgo = new Hakurei::Material("shaders/title.v.glsl", "shaders/title.f.glsl");
+        matgo->addTexture(new Hakurei::Texture("textures/GameOver.tga"));
+        scene->addMaterial("gameover_mat", matgo);
 
 
         // Objects
@@ -84,6 +100,7 @@ void make_resources(void)
         player->scene->kh->disableKeyRepeat(GLFW_KEY_SPACE);
         player->scene->kh->disableKeyRepeat(GLFW_KEY_Q);
         player->scene->kh->disableKeyRepeat(GLFW_KEY_P);
+        player->scene->kh->disableKeyRepeat(GLFW_KEY_ESCAPE);
         player->displaySupport = false;
     }
     return;
@@ -95,7 +112,8 @@ void drawScene()
     enableThings();
     if(titleScreen)
     {
-        getScene()->drawObjectInScene("title_screen", "title_mat");
+        if(screen == 0) getScene()->drawObjectInScene("title_screen", "title_mat");
+        if(screen == 1) getScene()->drawObjectInScene("title_screen", "gameover_mat");
     }
     else
     {
@@ -113,8 +131,6 @@ void drawScene()
 
 
 
-
-
 void mainLoop(void)
 {
     do
@@ -123,18 +139,39 @@ void mainLoop(void)
         {
             COUT << "SCORE FINAL"<< ENDL;
             player->display();
-            break;
 
+            float t = glfwGetTime();
+            do
+            {
+                FrameRate(30);
+                player->scene->initDrawingScene();
+                typedef Map<String, Hakurei::Mesh*>::iterator it_type;
+                for(it_type iterator = player->scene->objects.begin(); iterator != player->scene->objects.end(); iterator++) {
+                    if(iterator->second != NULL)
+                        iterator->second->transform(TRANSFORM_TRANSLATION, SET_TRANSFORM, Vec3f(0, -(glfwGetTime() - t) * (glfwGetTime() - t) * 15,0));
+                }
+                enableThings();
+                player->shape->drawShapeInScene("bloc");
+                player->matrix->drawMatrixInScene("bloc");
+                player->socle->drawShapeInScene("mat");
+                if(player->displaySupport) player->scene->drawObjectInScene("cylinder", "mat");
+                player->scene->drawObjectInScene("next_shape", "next");
+
+                disableThings();
+                swapBuffers();
+            }
+            while(glfwGetTime() - t < 1.5);
+
+            titleScreen = true;
+            break;
         }
         else
         {
             updateGame(player);
-
             updateStuff();
             player->udpatePlayer();
             drawScene();
             swapBuffers();
-
 
             if(KEY_PRESSED(GLFW_KEY_Q))
             {
@@ -143,9 +180,6 @@ void mainLoop(void)
             }
             if(KEY_PRESSED(GLFW_KEY_P))
             {
-                // afficher message pause
-
-
                 do
                 {
                     usleep(100000);
@@ -163,7 +197,7 @@ void mainLoop(void)
 void TitleScreen()
 {
     titleScreen = true;
-    make_resources();
+    if(screen == 0) make_resources();
     drawScene();
     swapBuffers();
 
@@ -188,11 +222,19 @@ int main(int argc, char* argv[])
     srand(time(NULL));
     GL_Initialization();
     init_music();
+    main_music();
+    screen = 0;
     TitleScreen();
     if(!titleScreen)
     {
         make_resources();
         mainLoop();
+        if(titleScreen)
+        {
+            screen = 1;
+            go_music();
+            TitleScreen();
+        }
     }
     end_music();
     shutDown(0);

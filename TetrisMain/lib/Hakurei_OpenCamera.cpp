@@ -119,8 +119,6 @@ void Hakurei::OpenCamera::moveCameraFromInputs()
     Bool rotated = false;
     Vec3f oldDirection = direction;
 
-
-
     typedef CallbackMap::iterator it_kcb;
     for(it_kcb iterator = callbacks.begin(); iterator != callbacks.end(); iterator++)
     {

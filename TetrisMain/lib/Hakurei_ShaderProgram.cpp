@@ -83,7 +83,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const Uint32 val)
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }
@@ -101,7 +103,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const Sint32 val)
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }
@@ -119,7 +123,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const float val)
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }
@@ -137,7 +143,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const double val)
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }
@@ -155,7 +163,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const Vec2f& val)
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }
@@ -173,7 +183,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const Vec3f& val)
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }
@@ -191,7 +203,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const Vec4f& val)
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }
@@ -209,7 +223,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const glm::mat2& v
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }
@@ -227,7 +243,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const glm::mat3& v
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }
@@ -245,7 +263,9 @@ void Hakurei::ShaderProgram::setUniform(const String uniName, const glm::mat4& v
         uniforms[uniName] = glGetUniformLocation(progID, uniName.c_str());
         if(uniforms.at(uniName) == -1)
         {
+#ifdef DISPLAY_WARNINGS
             CERR << "Warning : There is no uniform called " << uniName << " in shader program." << ENDL;
+#endif
             return;
         }
     }

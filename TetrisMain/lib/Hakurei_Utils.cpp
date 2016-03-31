@@ -9,7 +9,7 @@ void shutDown(int return_code)
 
 void exitOnError(String error)
 {
-    std::cerr << "Error: " << error << ENDL;
+    CERR << "Error: " << error << ENDL;
     shutDown(-1);
 }
 
@@ -27,7 +27,7 @@ void init_GLFW(void)
     GLFWwindow* w = glfwCreateWindow(window_width, window_height, TITLE, NULL, NULL);
     if(w == NULL)
     {
-        std::cerr << "Could not open a window" << ENDL;
+        CERR << "Could not open a window" << ENDL;
         shutDown(1);
     }
     glfwMakeContextCurrent(w);
@@ -39,7 +39,7 @@ void init_GLEW(void)
     glewExperimental = GL_TRUE;
     GLenum GlewInitResult = glewInit();
     if (GlewInitResult != GLEW_OK) {
-        std::cerr << "ERROR: " << glewGetErrorString(GlewInitResult) << ENDL;
+        CERR << "ERROR: " << glewGetErrorString(GlewInitResult) << ENDL;
         shutDown(1);
     }
     return;

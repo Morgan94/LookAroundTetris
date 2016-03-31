@@ -31,7 +31,9 @@ Hakurei::Mesh* Hakurei::OpenScene::getObjectByName(String objName)
 {
     if(objects[objName] == NULL)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : Object " << objName << " does not exist." << ENDL;
+#endif
         return NULL;
     }
     return objects[objName];
@@ -41,7 +43,9 @@ Hakurei::Material* Hakurei::OpenScene::getMaterialByName(String matName)
 {
     if(materials[matName] == NULL)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : Material " << matName << " does not exist." << ENDL;
+#endif
         return NULL;
     }
     return materials[matName];
@@ -51,7 +55,9 @@ void Hakurei::OpenScene::addMaterial(String mat_name, Hakurei::Material* materia
 {
     if(materials[mat_name] != NULL)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : Material " << mat_name << " is already set." << ENDL;
+#endif
         return;
     }
     materials[mat_name] = material;
@@ -62,7 +68,9 @@ void Hakurei::OpenScene::removeMaterial(String mat_name)
 {
     if(materials[mat_name] == NULL)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : Material " << mat_name << " does not exist." << ENDL;
+#endif
         return;
     }
 
@@ -81,7 +89,9 @@ void Hakurei::OpenScene::addObject(String obj_name, Hakurei::Mesh* object)
 {
     if(objects[obj_name] != NULL)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : Object " << obj_name << " is already set." << ENDL;
+#endif
         return;
     }
 
@@ -97,7 +107,9 @@ void Hakurei::OpenScene::removeObject(String obj_name)
 {
     if(objects[obj_name] == NULL)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : Object " << obj_name << " does not exist." << ENDL;
+#endif
         return;
     }
 
@@ -122,14 +134,18 @@ void Hakurei::OpenScene::drawObject(String objName, String matName)
     Hakurei::Material *mat = materials[matName];
     if(obj == NULL)
     {
+#ifdef DISPLAY_WARNINGS
         if(!warnObj[objName]) CERR << "Warning : there is no object named " << objName << ENDL;
         warnObj[objName] = true;
+#endif
         return;
     }
     if(mat == NULL)
     {
+#ifdef DISPLAY_WARNINGS
         if(!warnMat[matName]) CERR << "Warning : there is no material named " << matName << ENDL;
         warnMat[matName] = true;
+#endif
         return;
     }
 
@@ -192,12 +208,16 @@ void Hakurei::OpenScene::drawObjectInScene(String object, String material)
     Hakurei::Material* mat = materials[material];
     if(obj == NULL)
     {
-        CERR << "Object " << object << " does not exist." << ENDL;
+#ifdef DISPLAY_WARNINGS
+        CERR << "Warning : Object " << object << " does not exist." << ENDL;
+#endif
         return;
     }
     if(mat == NULL)
     {
-        CERR << "Object " << object << " does not exist." << ENDL;
+#ifdef DISPLAY_WARNINGS
+        CERR << "Warning : Object " << object << " does not exist." << ENDL;
+#endif
         return;
     }
 

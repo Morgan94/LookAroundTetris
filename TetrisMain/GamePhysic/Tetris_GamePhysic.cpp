@@ -35,17 +35,6 @@ Bool checkCollision(Tetris_Shape* shape, Tetris_Matrix* matrix, Bool fall)
 
 
 
-// Key Callback //
-/*float rota = 0;
-void RotateFix(Hakurei::OpenCamera* camera, float deltaTime, Bool* rotated)
-{
-    camera->angleH = rota - PI/2;
-    *rotated = true;
-}*/
-// ------------ //
-
-
-
 // Replace standard camera updating
 void TetrisCameraUpdate(float shapeAngle)
 {
@@ -125,24 +114,40 @@ void updateGame(Tetris_Player* player)
         createNextShapeObject(player->nextShape, player->nextShapeT);
         player->scene->addObject("next_shape", player->nextShape);
 
-
         Vector<Uint32> delRows;
         delRows.clear();
         for(Uint32 y=0; y<MATRIX_HEIGHT; y++)
             if(matrix->rowFull(y)) delRows.push_back(y);
         if(delRows.size() > 0)
         {
-            // animation trop swag de destruction des blocs
-            // ----------------
-            // ----------------
+            float t = glfwGetTime();
+            do
+            {
+                float newAlpha = 1.0 - (glfwGetTime() - t);
+                if(newAlpha < 0.0) newAlpha = 0.0;
+                for(Uint32 y : delRows)
+                {
+                    for(Uint32 x = 0; x < MATRIX_WIDTH; x++)
+                        matrix->get(x,y)->alpha = newAlpha;
+                }
+                FrameRate(30);
+                player->scene->initDrawingScene();
+                enableThings();
+                player->shape->drawShapeInScene("bloc");
+                player->matrix->drawMatrixInScene("bloc");
+                player->socle->drawShapeInScene("mat");
+                if(player->displaySupport) player->scene->drawObjectInScene("cylinder", "mat");
+                player->scene->drawObjectInScene("next_shape", "next");
+                disableThings();
+                swapBuffers();
+            }
+            while(glfwGetTime() - t < 1.0);
 
             Sint32 row;
             while((row = matrix->fullRow()) != -1)
                 matrix->deleteRow(row);
             player->updateScore(delRows.size());
         }
-
-
         player->display();
     }
 	

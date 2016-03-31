@@ -34,7 +34,9 @@ String Hakurei::Material::setSamplerUniform(String samplerName, String fShader)
     }
     if(samplerName.find(DEFAULT_COLOR_SAMPLER) != String::npos)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : samplerName contains default sampler name. Default sampler name will be used instead." << ENDL;
+#endif
         edit = false;
     }
 
@@ -75,11 +77,15 @@ void Hakurei::Material::addTexture(Hakurei::Texture* _texture)
     texture = _texture;
     if(texture == NULL)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : Texture does not exist." << ENDL;
+#endif
     }
     if(colorSampler.size() == 0)
     {
+#ifdef DISPLAY_WARNINGS
         CERR << "Warning : Trying to use texture without colorSampler." << ENDL;
+#endif
     }
     useTexture = true;
 }
