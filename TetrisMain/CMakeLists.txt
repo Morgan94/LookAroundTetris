@@ -7,7 +7,7 @@ enable_testing()
 set(CMAKE_CXX_FLAGS "-std=c++11 -DGL_GLEXT_PROTOTYPES -I/opt/X11/include") # Don't forget to define GL_GLEXT_PROTOTYPES to ensure that the glCreateShader and other prototypes are declared. Note we could do it in the main file via "#define GL_GLEXT_PROTOTYPES" before "#include <GL/glext.h>"
 ## setting build type to debug
 add_compile_options(-DUSE_FRAMEWORK__HAKUREI)
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_DEBUG "-O3")
 set(CMAKE_BUILD_TYPE DEBUG)
 LINK_DIRECTORIES("~/local_install/lib")
 LINK_DIRECTORIES("/usr/local/lib")
@@ -56,12 +56,15 @@ add_library(FrameworkHakurei ${FRAMEWORK_SRC})
 ### Source files ###
 set(GAME_PHYSIC  GamePhysic/Tetris_GamePhysic.cpp  GamePhysic/Tetris_GamePhysic.h  GamePhysic/Tetris_Shape.cpp  GamePhysic/Tetris_Shape.h  GamePhysic/Tetris_3DBloc.cpp  GamePhysic/Tetris_3DBloc.h)
 set(GAME_LOGIC  GameLogic/Tetris_Matrix.cpp  GameLogic/Tetris_Matrix.h GameLogic/Tetris_Player.cpp GameLogic/Tetris_Player.h)
-
-
 ### ------------ ###
 
 
 ### Creating an executable
 add_executable(LookAroundTetris main.cpp ${GAME_PHYSIC} ${GAME_LOGIC})
 target_link_libraries(FrameworkHakurei ${GL_LIBRARIES} ${APPLE_FRAMEWORKS} ${GLFW3_STATIC_LIBRARIES} ${ASSIMP_LIBRARIES})
-target_link_libraries(LookAroundTetris FrameworkHakurei "${CMAKE_CURRENT_SOURCE_DIR}/lib/libIrrKlang.so")
+if(APPLE)
+	target_link_libraries(LookAroundTetris FrameworkHakurei "${CMAKE_CURRENT_SOURCE_DIR}/lib/libIrrKlang.dylib")
+else(APPLE)
+	target_link_libraries(LookAroundTetris FrameworkHakurei "${CMAKE_CURRENT_SOURCE_DIR}/lib/libIrrKlang.so")
+endif(APPLE)
+

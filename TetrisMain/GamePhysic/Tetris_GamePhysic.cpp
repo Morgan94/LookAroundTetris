@@ -2,6 +2,10 @@
 
 
 
+
+
+
+
 Bool blocCollision(Tetris_3DBloc* bloc, Vec2f gravityCenter, Tetris_Matrix* matrix, Bool fall)
 {
     bloc->compute2DPos(gravityCenter);
@@ -41,15 +45,15 @@ void TetrisCameraUpdate(float shapeAngle)
 	Hakurei::OpenCamera* camera = getScene()->camera;
     camera->computeCameraMark();
     Vec3f oldDirection = camera->direction;
-	
+
 	camera->angleH = shapeAngle - PI/2;
     camera->computeCameraMark();
     Vec3f distCamCenter = camera->position - camera->cameraTarget;
     double distance = sqrt(distCamCenter[0] * distCamCenter[0] + distCamCenter[2] * distCamCenter[2]);
     camera->position += Vec3f(oldDirection - camera->direction) * (float)(distance);
-	
+
 	getScene()->updateCamera();
-	
+
 	return;
 }
 
@@ -66,47 +70,44 @@ void moveShape(Tetris_Shape* shape, Vec2f movement)
     while(shape->pos2D[0] >= 2*FL_COLS) shape->pos2D[0] -= FL_COLS;
 }
 
+void line_music();
 void updateGame(Tetris_Player* player)
 {
-    Tetris_Shape* shape = player->shape;
-    Tetris_Matrix* matrix = player->matrix;
-
-
     if(KEY_PRESSED(GLFW_KEY_RIGHT))
     {
-        MOVE_RIGHT(shape);
-        if(checkCollision(shape, matrix, false)) {CANCEL_RIGHT(shape);}
+        MOVE_RIGHT(player->shape);
+        if(checkCollision(player->shape, player->matrix, false)) {CANCEL_RIGHT(player->shape);}
     }
     else if(KEY_PRESSED(GLFW_KEY_LEFT))
     {
-        MOVE_LEFT(shape);
-        if(checkCollision(shape, matrix, false)) {CANCEL_LEFT(shape);}
+        MOVE_LEFT(player->shape);
+        if(checkCollision(player->shape, player->matrix, false)) {CANCEL_LEFT(player->shape);}
     }
 
-    if(KEY_PRESSED(GLFW_KEY_SPACE))
+    if(KEY_PRESSED(GLFW_KEY_SPACE) || KEY_PRESSED(GLFW_KEY_UP))
     {
-        shape->rotate90;
-        if(checkCollision(shape, matrix, false))
-            shape->rotate270;
+        player->shape->rotate90;
+        if(checkCollision(player->shape, player->matrix, false))
+            player->shape->rotate270;
     }
 
     if(KEY_PRESSED(GLFW_KEY_DOWN))
     {
-        shape->pos2D -= Vec2f(0.0, 0.5);
+        player->shape->pos2D -= Vec2f(0.0, 0.5);
         player->incrementScore();
     }
     else
     {
-        shape->pos2D -= Vec2f(0.0, 2 * player->speed);
+        player->shape->pos2D -= Vec2f(0.0, 2 * player->speed);
     }
 
-    if(checkCollision(shape, matrix, true))
+    if(checkCollision(player->shape, player->matrix, true))
     {
-        float lastPos = shape->pos2D[0];
-        shape->pos2D += Vec2f(0.0, 0.9);
-        matrix->addShapeToMatrix(shape);
+        float lastPos = player->shape->pos2D[0];
+        player->shape->pos2D += Vec2f(0.0, 0.9);
+        player->matrix->addShapeToMatrix(player->shape);
 
-        shape = new Tetris_Shape(player->nextShapeT, Vec2f(lastPos, FL_ROWS));
+        player->shape = new Tetris_Shape(player->nextShapeT, Vec2f(lastPos, FL_ROWS));
         player->nextShapeT = RandomGen();
 
         player->scene->removeObject("next_shape");
@@ -117,9 +118,10 @@ void updateGame(Tetris_Player* player)
         Vector<Uint32> delRows;
         delRows.clear();
         for(Uint32 y=0; y<MATRIX_HEIGHT; y++)
-            if(matrix->rowFull(y)) delRows.push_back(y);
+            if(player->matrix->rowFull(y)) delRows.push_back(y);
         if(delRows.size() > 0)
         {
+            line_music();
             float t = glfwGetTime();
             do
             {
@@ -128,7 +130,7 @@ void updateGame(Tetris_Player* player)
                 for(Uint32 y : delRows)
                 {
                     for(Uint32 x = 0; x < MATRIX_WIDTH; x++)
-                        matrix->get(x,y)->alpha = newAlpha;
+                        player->matrix->get(x,y)->alpha = newAlpha;
                 }
                 FrameRate(30);
                 player->scene->initDrawingScene();
@@ -144,14 +146,14 @@ void updateGame(Tetris_Player* player)
             while(glfwGetTime() - t < 1.0);
 
             Sint32 row;
-            while((row = matrix->fullRow()) != -1)
-                matrix->deleteRow(row);
+            while((row = player->matrix->fullRow()) != -1)
+                player->matrix->deleteRow(row);
             player->updateScore(delRows.size());
         }
         player->display();
     }
-	
-    TetrisCameraUpdate(((2 * PI * (float)((Uint32)(shape->pos2D[0]))) / FL_COLS));
+
+    TetrisCameraUpdate(((2 * PI * (float)((Uint32)(player->shape->pos2D[0]))) / FL_COLS));
 }
 
 // --------------------- //

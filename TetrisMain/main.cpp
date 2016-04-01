@@ -23,6 +23,14 @@ void main_music()
     SoundEngine->play2D("../resources/audio/TetrisTheme_WAV.wav", GL_TRUE);
 }
 
+void line_music()
+{
+#ifdef GOAT_SOUND
+    SoundEngine->play2D("../resources/audio/sheep.wav", GL_FALSE);
+#endif
+}
+
+
 void go_music()
 {
     SoundEngine->stopAllSounds();
@@ -101,10 +109,12 @@ void make_resources(void)
         player->scene->kh->disableKeyRepeat(GLFW_KEY_Q);
         player->scene->kh->disableKeyRepeat(GLFW_KEY_P);
         player->scene->kh->disableKeyRepeat(GLFW_KEY_ESCAPE);
+        player->scene->kh->disableKeyRepeat(GLFW_KEY_UP);
         player->displaySupport = false;
     }
     return;
 }
+
 
 
 void drawScene()
