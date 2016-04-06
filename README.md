@@ -13,6 +13,8 @@
     * **lib** : Hakurei library (copyright LookAroundTetris Team), IrrKlang (audio library). 
     * **resources** : audio files, shaders, textures and objects.
     
+***
+    
 ### Ongoing modifications
 High Score and Time currently displayed in console will be displayed in game window.  
 As the git doesn't support file taking more than 3Mo, the git version is automatically shortened. 
@@ -30,6 +32,7 @@ Thus, a loop in the music might appear. We'll try to correct it as soon as possi
         make
         ./LookAroundTetris
 
+***
 
 ## Overview
  *  **Title :** LookAroundTetris
@@ -41,6 +44,8 @@ Thus, a loop in the music might appear. We'll try to correct it as soon as possi
     * Preview of the next tetromino
     * Possibility of speed up the tetromino
     * Pause mode
+    
+![overview image](http://zupimages.net/up/16/14/z62u.png "Overview")    
 
 #### **Controls :**
 
@@ -59,14 +64,19 @@ LookAroundTetris is a single player game.
 The goal is to complete rows with tetrominos that drop from the top of the screen. When a row is full, it disappears, and after 5 rows destroyed, the player level up and the difficulty increase.
 The score of the player increase when he destroy rows and when he speed up tetrominos with key down
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=3eacvTH6L9k&feature=youtu.be
+" target="_blank"><img src="http://img.youtube.com/vi/3eacvTH6L9k&feature=youtu.be/0.jpg" 
+alt="Gameplay video" width="240" height="180" border="10" /></a>
+
 ## Tetrominos :
 
 There is 7 different tetriminos in LookAroundTetris : 
 
-![tetrominos Image](http://gitlab.ecole.ensicaen.fr/lacherez/LookAroundTetris/blob/master/TetrisMain/resources/TetrisSS.png)
+![tetrominos shapes here](http://zupimages.net/up/16/14/n6mp.png "Shapes")
 
 These tetrominos will pop randomly during the game. The player is able to see the next tetromino in a small preview at the upper left corner of the screen.
 
+***
 
 ## Technical details (Viewport configuration) : 
 
