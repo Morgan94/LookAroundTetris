@@ -64,9 +64,7 @@ LookAroundTetris is a single player game.
 The goal is to complete rows with tetrominos that drop from the top of the screen. When a row is full, it disappears, and after 5 rows destroyed, the player level up and the difficulty increase.
 The score of the player increase when he destroy rows and when he speed up tetrominos with key down
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=3eacvTH6L9k&feature=youtu.be
-" target="_blank"><img src="http://img.youtube.com/vi/3eacvTH6L9k&feature=youtu.be/0.jpg" 
-alt="Gameplay video" width="240" height="180" border="10" /></a>
+![Gameplay Gif](http://www.ecole.ensicaen.fr/~lacherez/Rep/LookaroundTetris.gif)
 
 ## Tetrominos :
 
